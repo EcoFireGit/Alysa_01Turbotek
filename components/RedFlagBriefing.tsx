@@ -34,12 +34,12 @@ export function RedFlagBriefing({ onAskAbout }: RedFlagBriefingProps) {
             style={{ background: '#f87171', boxShadow: '0 0 6px #f87171' }}
           />
           <span className="text-xs font-semibold" style={{ color: '#f87171' }}>
-            TODAY'S DELIVERY RED FLAGS
+            TODAY'S CHURN RISK FLAGS
           </span>
           <InfoTooltip
-            title="Delivery Red-Flag Summary"
-            definition="Daily briefing of accounts where delivery communications have turned cold, silent, or critical. Inferred from email tone analysis, MS Teams activity, and Salesforce engagement signals."
-            sources={['Email', 'MS Teams', 'Salesforce']}
+            title="Churn Risk Summary"
+            definition="Daily briefing of clients where communications have gone silent, cold, or critical. Inferred from Autotask ticket patterns, IT Glue engagement signals, Fathom meeting notes, and MS Teams activity."
+            sources={['Autotask', 'IT Glue', 'Fathom', 'MS Teams']}
           />
         </div>
         <span className="text-xs" style={{ color: 'var(--text-muted)' }}>

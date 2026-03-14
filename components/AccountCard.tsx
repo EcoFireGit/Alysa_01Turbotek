@@ -12,7 +12,8 @@ interface AccountCardProps {
 }
 
 function formatArr(arr: number) {
-  return `$${(arr / 1000000).toFixed(0)}M`
+  if (arr >= 1000000) return `$${(arr / 1000000).toFixed(1)}M`
+  return `$${Math.round(arr / 1000)}K`
 }
 
 function getHealthDot(health: string) {
@@ -69,7 +70,7 @@ export function AccountCard({ account, onClick, compact = false }: AccountCardPr
                 {account.name}
               </div>
               <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-                {account.industry} · {formatArr(account.arr)} ARR
+                {account.industry} · {formatArr(account.arr)} ARR · {formatArr(Math.round(account.arr / 12))} MRR
               </div>
             </div>
           </div>
@@ -108,8 +109,8 @@ export function AccountCard({ account, onClick, compact = false }: AccountCardPr
               Profile
               <InfoTooltip
                 title="Profile Completeness"
-                definition="Percentage of MEDPICC fields populated in Salesforce. Lower scores limit AI analysis accuracy and indicate gaps in economic buyer, decision criteria, or champion mapping."
-                sources={['Salesforce']}
+                definition="How complete this client's profile is — business goals, key stakeholders, tech stack, and renewal details. Lower scores limit Alysa's analysis and signal gaps in strategic alignment."
+                sources={['Autotask', 'IT Glue']}
               />
             </span>
             <span className="text-xs font-medium" style={{ color: 'var(--text-primary)' }}>{account.profileCompleteness}%</span>
@@ -128,6 +129,40 @@ export function AccountCard({ account, onClick, compact = false }: AccountCardPr
             />
           </div>
         </div>
+
+        {/* MSP Turning Point */}
+        {account.mspTurningPoint && (
+          <div className="mb-3">
+            <div className="flex justify-between items-center mb-1">
+              <span className="inline-flex items-center text-xs" style={{ color: 'var(--text-secondary)' }}>
+                MSP Turning Point
+                <InfoTooltip
+                  title="MSP Turning Point"
+                  definition={`The point at which this account's MRR (monthly recurring revenue) covers its monthly cost-to-serve and every dollar beyond is pure profit. ARR ÷ 12 = MRR. Margin contribution is estimated from Autotask ticket volume, support hours, and account complexity. ${account.mspTurningPoint.note}`}
+                  sources={['Autotask', 'Kaseya RMM']}
+                />
+              </span>
+              <span
+                className="text-xs font-semibold px-1.5 py-0.5 rounded"
+                style={{
+                  color: account.mspTurningPoint.status === 'above' ? '#4ade80' : account.mspTurningPoint.status === 'at' ? '#facc15' : '#f87171',
+                  background: account.mspTurningPoint.status === 'above' ? 'rgba(74,222,128,0.1)' : account.mspTurningPoint.status === 'at' ? 'rgba(250,204,21,0.1)' : 'rgba(248,113,113,0.1)',
+                }}
+              >
+                {account.mspTurningPoint.status === 'above' ? '⬆' : account.mspTurningPoint.status === 'at' ? '≈' : '⬇'} {account.mspTurningPoint.marginContribution}% margin
+              </span>
+            </div>
+            <div className="h-1 rounded-full" style={{ background: 'var(--border)' }}>
+              <div
+                className="h-1 rounded-full transition-all duration-500"
+                style={{
+                  width: `${account.mspTurningPoint.marginContribution}%`,
+                  background: account.mspTurningPoint.status === 'above' ? '#4ade80' : account.mspTurningPoint.status === 'at' ? '#facc15' : '#f87171',
+                }}
+              />
+            </div>
+          </div>
+        )}
 
         {/* Key signals */}
         {!compact && (
@@ -168,7 +203,7 @@ export function AccountCard({ account, onClick, compact = false }: AccountCardPr
             className="mt-2 text-xs px-2 py-0.5 rounded inline-flex items-center gap-1"
             style={{ background: 'rgba(74,222,128,0.1)', color: '#4ade80' }}
           >
-            💰 +${(account.expansionPotential.low / 1000000).toFixed(1)}–{(account.expansionPotential.high / 1000000).toFixed(1)}M potential
+            💰 +{formatArr(account.expansionPotential.low)}–{formatArr(account.expansionPotential.high)} potential
             <InfoTooltip
               title="Expansion Potential"
               definition="Estimated additional ARR range from upsell, cross-sell, or new module adoption. Modeled from current usage gaps, company headcount, and industry benchmarks."

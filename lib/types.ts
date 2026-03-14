@@ -32,6 +32,12 @@ export interface RedFlagSignal {
   lastTone: string
 }
 
+export interface MspTurningPoint {
+  marginContribution: number        // % of MRR that's pure profit beyond cost-to-serve
+  status: 'above' | 'at' | 'below' // relative to the turning point threshold
+  note: string                      // brief explanation
+}
+
 export interface Account {
   id: string
   name: string
@@ -47,6 +53,7 @@ export interface Account {
   keySignals: string[]
   expansionPotential?: { low: number; high: number }
   notes: string
+  mspTurningPoint?: MspTurningPoint
   valueSnapshot?: ValueSnapshot
   scopeDrift?: ScopeDrift
   blockerMatch?: BlockerMatch

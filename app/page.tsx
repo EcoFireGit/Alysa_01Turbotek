@@ -22,7 +22,7 @@ export default function Home() {
   }, [theme])
 
   function handleAccountClick(account: Account) {
-    const prompt = `Give me a full deep dive on ${account.name} — risk analysis, sentiment, data health gaps, and recommended next actions.`
+    const prompt = `Give me a full briefing on ${account.name} — their business goals, churn risk signals, data health gaps, and what I should do before my next strategy meeting with them.`
     setInitialPrompt(prompt)
     setChatKey(prev => prev + 1)
   }
@@ -66,7 +66,7 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-center gap-3 text-xs" style={{ color: 'var(--text-muted)' }}>
-            <span>$24M MRR · 8 accounts</span>
+            <span>$2.4M ARR · $200K MRR · 8 accounts</span>
             <button
               onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
               className="w-8 h-8 rounded-lg flex items-center justify-center transition-all"

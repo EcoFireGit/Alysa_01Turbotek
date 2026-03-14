@@ -32,12 +32,12 @@ interface ChatInterfaceProps {
 }
 
 const SUGGESTED_PROMPTS = [
-  'I have a QBR with Pinnacle Health Systems next month — what are the key talking points?',
-  'Which clients are most at risk of churning and what should I do about each one?',
-  'Show me today\'s red flags across the portfolio and recommended actions',
-  'Valley Fabrication still hasn\'t approved the network refresh — draft a CFO-ready business case',
-  'Which accounts don\'t have documented business goals and what questions should I ask?',
-  'Where do I have scope drift that could turn into a margin problem?',
+  'Which accounts have incomplete business goals documented and what questions should I ask at the next strategy meeting?',
+  'For each account, show me the gap between their stated goals and their current strategic roadmap',
+  'Which accounts have a roadmap but no clear tactical steps to execute against it?',
+  'Prepare a strategy meeting agenda for Pinnacle Health Systems — goals review, roadmap gaps, and 90-day actions',
+  'Which clients are most at risk of churning because we haven\'t aligned to their business objectives?',
+  'Which accounts are below the MSP Turning Point and what tactical steps would flip them to pure profit?',
 ]
 
 export function ChatInterface({ onFeedback, initialPrompt }: ChatInterfaceProps) {
@@ -225,7 +225,7 @@ export function ChatInterface({ onFeedback, initialPrompt }: ChatInterfaceProps)
             </div>
             <h2 className="text-xl font-semibold mb-2" style={{ color: 'var(--text-hover)' }}>Alysa</h2>
             <p className="text-sm mb-8 max-w-sm" style={{ color: 'var(--text-secondary)' }}>
-              Your Value Realization & Delivery Engine. Surface business outcomes, flag delivery risks, and turn technical signals into client-ready insights.
+              Your Strategic Client Alignment Engine. Know your clients' goals, stay ahead of churn, and walk into every QSR with the right questions and a defensible value story.
             </p>
 
             {/* Suggested prompts */}

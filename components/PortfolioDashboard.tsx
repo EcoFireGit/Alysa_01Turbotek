@@ -42,7 +42,7 @@ export function PortfolioDashboard({ onAccountClick, onAskAbout }: PortfolioDash
       {/* Header */}
       <div>
         <h2 className="text-lg font-semibold" style={{ color: 'var(--text-hover)' }}>Client Alignment Portfolio</h2>
-        <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>8 accounts · $24M MRR · March 2026</p>
+        <p className="text-sm mt-0.5" style={{ color: 'var(--text-secondary)' }}>8 accounts · $2.4M ARR · $200K MRR · March 2026</p>
       </div>
 
       {/* Daily Red Flag Briefing */}
@@ -51,45 +51,45 @@ export function PortfolioDashboard({ onAccountClick, onAskAbout }: PortfolioDash
       {/* Stats row */}
       <div className="grid grid-cols-2 gap-3">
         <StatCard
-          label="Total MRR"
-          value="$24M"
-          sub="8 accounts"
+          label="Total ARR"
+          value="$2.4M"
+          sub="$200K MRR · 8 accounts"
           tooltip={{
-            title: 'Total MRR',
-            definition: 'Total Monthly Recurring Revenue across all managed accounts. Simulated demo data.',
+            title: 'Total ARR vs MRR',
+            definition: 'ARR (Annual Recurring Revenue) is the total contracted value across all accounts per year. MRR (Monthly Recurring Revenue) is ARR ÷ 12 — the amount hitting the books each month. Simulated demo data.',
             sources: ['Autotask', 'Kaseya RMM'],
           }}
         />
         <StatCard
-          label="Churn Risk"
-          value="$9.4M"
-          sub="3 accounts · act now"
+          label="ARR at Churn Risk"
+          value="$940K"
+          sub="$78K MRR · 3 accounts · act now"
           color="#f87171"
           tooltip={{
-            title: 'Churn Risk',
-            definition: 'MRR at risk due to active engagement failures — silent accounts, compliance gaps, or unresolved infrastructure issues. Requires immediate principal intervention.',
+            title: 'ARR at Churn Risk',
+            definition: 'Annual contract value at risk due to active engagement failures — silent accounts, compliance gaps, or unresolved infrastructure issues. MRR equivalent: $78K/month. Requires immediate principal intervention.',
             sources: ['Autotask', 'Kaseya RMM', 'IT Glue', 'Thread'],
           }}
         />
         <StatCard
           label="Near-Term Expansion"
-          value="$1.2–2.0M"
-          sub="2 accounts · 60 days"
+          value="$122–196K"
+          sub="$10–16K MRR · 2 accounts · 60 days"
           color="#4ade80"
           tooltip={{
             title: 'Near-Term Expansion',
-            definition: 'Additional MRR achievable within 60 days by converting active client goals and documented IT gaps into project or service expansions.',
+            definition: 'Additional ARR achievable within 60 days by converting active client goals and documented IT gaps into project or service expansions. MRR equivalent: $10–16K/month.',
             sources: ['Autotask', 'Fathom', 'IT Glue', 'Forrester'],
           }}
         />
         <StatCard
           label="Expansion Whitespace"
-          value="$2.3–3.7M"
-          sub="Full portfolio"
+          value="$234–372K"
+          sub="$20–31K MRR · Full portfolio"
           color="var(--accent)"
           tooltip={{
             title: 'Expansion Whitespace',
-            definition: 'Total upsell opportunity across all accounts based on undocumented client goals, technology gaps, and industry benchmarks for similar-sized firms.',
+            definition: 'Total upsell ARR opportunity across all accounts based on undocumented client goals, technology gaps, and industry benchmarks. MRR equivalent: $20–31K/month.',
             sources: ['Autotask', 'IT Glue', 'Forrester', 'IDC'],
           }}
         />
@@ -110,10 +110,10 @@ export function PortfolioDashboard({ onAccountClick, onAskAbout }: PortfolioDash
         </div>
         <div className="flex gap-2 mb-3">
           {[
-            { label: 'At Risk', count: 3, arr: '$9.4M', color: '#f87171', bg: 'rgba(248,113,113,0.12)' },
-            { label: 'Stabilise', count: 2, arr: '$5.4M', color: '#facc15', bg: 'rgba(250,204,21,0.12)' },
-            { label: 'Expand', count: 2, arr: '$7.0M', color: '#4ade80', bg: 'rgba(74,222,128,0.12)' },
-            { label: 'Stable', count: 1, arr: '$2.2M', color: '#94a3b8', bg: 'rgba(148,163,184,0.12)' },
+            { label: 'At Risk', count: 3, arr: '$940K', color: '#f87171', bg: 'rgba(248,113,113,0.12)' },
+            { label: 'Stabilise', count: 2, arr: '$540K', color: '#facc15', bg: 'rgba(250,204,21,0.12)' },
+            { label: 'Expand', count: 2, arr: '$700K', color: '#4ade80', bg: 'rgba(74,222,128,0.12)' },
+            { label: 'Stable', count: 1, arr: '$220K', color: '#94a3b8', bg: 'rgba(148,163,184,0.12)' },
           ].map(item => (
             <div
               key={item.label}
@@ -141,12 +141,12 @@ export function PortfolioDashboard({ onAccountClick, onAskAbout }: PortfolioDash
         <div className="text-xs font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>QUICK ACTIONS</div>
         <div className="flex flex-wrap gap-2">
           {[
-            { label: '🚨 Churn Risk Briefing',        prompt: 'Show churn risk action plans for all at-risk accounts' },
-            { label: '📋 QBR Prep — All Accounts',   prompt: 'Prepare a QBR briefing for each account — key goals, gaps, and recommended talking points' },
-            { label: '🎯 Goals Alignment Report',     prompt: 'Which accounts have undocumented or misaligned business goals? What should I ask them?' },
-            { label: '🚀 Expansion Opportunities',    prompt: 'Show strategic expansion opportunities across all accounts with client business case' },
-            { label: '⚠️ Scope Drift & SOW Risk',    prompt: 'Which accounts have requests outside their current SOW? What is the margin exposure?' },
-            { label: '🔒 Stickiness Assessment',      prompt: 'Which accounts are most at risk of churning and what would make them stickier?' },
+            { label: '🎯 Goals Gap Report',           prompt: 'Which accounts have no documented business goals? For each one, what questions should I ask to uncover them?' },
+            { label: '🗺️ Roadmap Alignment Check',   prompt: 'For each account, show the gap between their business goals and their current strategic IT roadmap' },
+            { label: '✅ Tactical Steps Tracker',     prompt: 'Which accounts have a roadmap but missing or stalled tactical steps? What should be actioned in the next 30 days?' },
+            { label: '📋 QSR Prep — All Accounts',   prompt: 'Prepare a QSR agenda for each account — goals review, roadmap status, and 90-day action items' },
+            { label: '🚨 Churn Risk Briefing',        prompt: 'Which accounts are at churn risk because we lack strategic alignment? What is the immediate action plan?' },
+            { label: '🔒 Stickiness Assessment',      prompt: 'Which accounts are stickiest and why? Which are most transactional and what would deepen the relationship?' },
           ].map(action => (
             <button
               key={action.label}
