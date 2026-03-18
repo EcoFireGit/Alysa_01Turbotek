@@ -32,6 +32,7 @@ interface ChatInterfaceProps {
 }
 
 const SUGGESTED_PROMPTS = [
+  'Take me to my dashboard',
   'Which accounts have incomplete business goals documented and what questions should I ask at the next strategy meeting?',
   'For each account, show me the gap between their stated goals and their current strategic roadmap',
   'Which accounts have a roadmap but no clear tactical steps to execute against it?',
@@ -125,6 +126,13 @@ export function ChatInterface({ onFeedback, initialPrompt }: ChatInterfaceProps)
 
   async function sendMessage(text: string) {
     if (!text.trim() || isStreaming) return
+
+    // Dashboard navigation
+    const normalized = text.trim().toLowerCase()
+    if (normalized.includes('take me to my dashboard') || normalized === 'dashboard') {
+      if (typeof window !== 'undefined') window.location.href = '/dashboard'
+      return
+    }
 
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
