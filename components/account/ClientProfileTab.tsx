@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Target, Users, Briefcase, Shield, Calendar, MessageSquare, DollarSign, Clock, ThumbsUp, ThumbsDown, CheckCircle2, AlertTriangle } from 'lucide-react'
 import { CollapsibleCard } from '@/components/ui/CollapsibleCard'
-import { SectionFeedback } from './SectionFeedback'
+import { SectionChat } from './SectionChat'
 import { AccountData } from '@/lib/types'
 
 const SENTIMENT_COLORS: Record<string, string> = {
@@ -45,7 +45,12 @@ export function ClientProfileTab({ account }: { account: AccountData }) {
         </div>
 
         {/* Business Goals & Constraints */}
-        <CollapsibleCard title="Business Goals & Constraints" icon={<Target className="w-4 h-4" />}>
+        <CollapsibleCard
+          title="Business Goals & Constraints"
+          icon={<Target className="w-4 h-4" />}
+          infoSources={['Fathom', 'CRM', 'IT Glue']}
+          infoDefinition="Business goals and constraints captured from discovery calls and CRM notes."
+        >
           <div className="space-y-3">
             <div>
               <div className="text-xs font-semibold mb-2" style={{ color: 'var(--text-muted)', letterSpacing: '0.05em' }}>GOALS</div>
@@ -69,12 +74,22 @@ export function ClientProfileTab({ account }: { account: AccountData }) {
                 ))}
               </div>
             </div>
-            <SectionFeedback compact />
+            <SectionChat
+              sectionTitle="Business Goals & Constraints"
+              accountName={account.name}
+              context={`Goals:\n${account.businessGoals.join('\n')}\n\nConstraints:\n${account.constraints.join('\n')}`}
+              compact
+            />
           </div>
         </CollapsibleCard>
 
         {/* Stakeholders */}
-        <CollapsibleCard title="Stakeholders & Decisions" icon={<Users className="w-4 h-4" />}>
+        <CollapsibleCard
+          title="Stakeholders & Decisions"
+          icon={<Users className="w-4 h-4" />}
+          infoSources={['CRM', 'Fathom']}
+          infoDefinition="Stakeholder map and sentiment derived from CRM records and meeting transcripts."
+        >
           <div className="space-y-2">
             {account.stakeholders.map((s, i) => (
               <div key={i} className="flex items-center justify-between py-2 px-3 rounded-lg" style={{ background: 'var(--surface-deep, var(--bg))', border: '1px solid var(--border-faint)' }}>
@@ -87,12 +102,22 @@ export function ClientProfileTab({ account }: { account: AccountData }) {
                 </span>
               </div>
             ))}
-            <SectionFeedback compact />
+            <SectionChat
+              sectionTitle="Stakeholders & Decisions"
+              accountName={account.name}
+              context={account.stakeholders.map(s => `${s.name} (${s.role}): ${s.sentiment}`).join('\n')}
+              compact
+            />
           </div>
         </CollapsibleCard>
 
         {/* Current Environment */}
-        <CollapsibleCard title="Current Environment" icon={<Briefcase className="w-4 h-4" />}>
+        <CollapsibleCard
+          title="Current Environment"
+          icon={<Briefcase className="w-4 h-4" />}
+          infoSources={['IT Glue', 'Kaseya RMM']}
+          infoDefinition="Technology environment documented in IT Glue and confirmed via RMM agent data."
+        >
           <div className="flex flex-wrap gap-2">
             {account.currentEnvironment.map((item, i) => (
               <span key={i} className="text-xs px-2.5 py-1 rounded-full" style={{ background: 'var(--accent-bg-soft, rgba(87,94,207,0.08))', color: 'var(--accent)', border: '1px solid var(--accent-border-medium, rgba(87,94,207,0.2))' }}>
@@ -100,11 +125,21 @@ export function ClientProfileTab({ account }: { account: AccountData }) {
               </span>
             ))}
           </div>
-          <SectionFeedback compact />
+          <SectionChat
+            sectionTitle="Current Environment"
+            accountName={account.name}
+            context={`Current environment:\n${account.currentEnvironment.join('\n')}`}
+            compact
+          />
         </CollapsibleCard>
 
         {/* Risk Posture */}
-        <CollapsibleCard title="Risk Posture & Compliance" icon={<Shield className="w-4 h-4" />}>
+        <CollapsibleCard
+          title="Risk Posture & Compliance"
+          icon={<Shield className="w-4 h-4" />}
+          infoSources={['Kaseya RMM', 'IT Glue', 'CrowdStrike']}
+          infoDefinition="Risk and compliance signals sourced from RMM telemetry, IT Glue assessments, and security tooling."
+        >
           <div className="space-y-1.5">
             {account.riskPosture.map((r, i) => (
               <div key={i} className="flex items-start gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
@@ -113,11 +148,21 @@ export function ClientProfileTab({ account }: { account: AccountData }) {
               </div>
             ))}
           </div>
-          <SectionFeedback compact />
+          <SectionChat
+            sectionTitle="Risk Posture & Compliance"
+            accountName={account.name}
+            context={`Risk posture items:\n${account.riskPosture.join('\n')}`}
+            compact
+          />
         </CollapsibleCard>
 
         {/* Renewal Dates */}
-        <CollapsibleCard title="Renewal Dates / Contracts" icon={<Calendar className="w-4 h-4" />}>
+        <CollapsibleCard
+          title="Renewal Dates / Contracts"
+          icon={<Calendar className="w-4 h-4" />}
+          infoSources={['ConnectWise PSA', 'CRM']}
+          infoDefinition="Contract and renewal dates pulled from ConnectWise PSA agreements and CRM opportunity records."
+        >
           <div className="space-y-2">
             {account.renewalDates.map((rd, i) => (
               <div key={i} className="flex items-center justify-between text-sm py-1">
@@ -126,11 +171,21 @@ export function ClientProfileTab({ account }: { account: AccountData }) {
               </div>
             ))}
           </div>
-          <SectionFeedback compact />
+          <SectionChat
+            sectionTitle="Renewal Dates"
+            accountName={account.name}
+            context={account.renewalDates.map(rd => `${rd.vendor}: ${rd.date}`).join('\n')}
+            compact
+          />
         </CollapsibleCard>
 
         {/* Satisfaction Signals */}
-        <CollapsibleCard title="Satisfaction Signals" icon={<MessageSquare className="w-4 h-4" />}>
+        <CollapsibleCard
+          title="Satisfaction Signals"
+          icon={<MessageSquare className="w-4 h-4" />}
+          infoSources={['Fathom', 'CSAT', 'CRM']}
+          infoDefinition="Satisfaction indicators sourced from meeting sentiment analysis, CSAT scores, and CRM notes."
+        >
           <div className="space-y-1.5">
             {account.satisfactionSignals.map((s, i) => (
               <div key={i} className="text-sm italic py-1" style={{ color: 'var(--text-secondary)', borderBottom: i < account.satisfactionSignals.length - 1 ? '1px solid var(--border-faint)' : 'none' }}>
@@ -138,17 +193,37 @@ export function ClientProfileTab({ account }: { account: AccountData }) {
               </div>
             ))}
           </div>
-          <SectionFeedback compact />
+          <SectionChat
+            sectionTitle="Satisfaction Signals"
+            accountName={account.name}
+            context={`Satisfaction signals:\n${account.satisfactionSignals.join('\n')}`}
+            compact
+          />
         </CollapsibleCard>
 
         {/* Budget */}
-        <CollapsibleCard title="Budget & Spend Bands" icon={<DollarSign className="w-4 h-4" />}>
+        <CollapsibleCard
+          title="Budget & Spend Bands"
+          icon={<DollarSign className="w-4 h-4" />}
+          infoSources={['ConnectWise PSA', 'CRM']}
+          infoDefinition="Budget band estimates derived from contract values, project history, and CRM opportunity data."
+        >
           <div className="text-sm" style={{ color: 'var(--text-primary)' }}>{account.budgetBand}</div>
-          <SectionFeedback compact />
+          <SectionChat
+            sectionTitle="Budget & Spend Bands"
+            accountName={account.name}
+            context={`Budget band: ${account.budgetBand}`}
+            compact
+          />
         </CollapsibleCard>
 
         {/* Recent Intel + Inferences */}
-        <CollapsibleCard title="Recent Intel & Inferences" icon={<Clock className="w-4 h-4" />}>
+        <CollapsibleCard
+          title="Recent Intel & Inferences"
+          icon={<Clock className="w-4 h-4" />}
+          infoSources={['Fathom', 'CRM', 'ConnectWise PSA']}
+          infoDefinition="Recent signals from meeting transcripts, CRM activity feed, and ticket history. Inferences are AI-generated and should be confirmed."
+        >
           <div className="space-y-4">
             <div>
               <div className="text-xs font-semibold mb-2" style={{ color: 'var(--text-muted)', letterSpacing: '0.05em' }}>RECENT INTEL</div>
@@ -201,7 +276,12 @@ export function ClientProfileTab({ account }: { account: AccountData }) {
               </div>
             </div>
           </div>
-          <SectionFeedback compact />
+          <SectionChat
+            sectionTitle="Recent Intel & Inferences"
+            accountName={account.name}
+            context={`Recent intel:\n${account.recentIntel.join('\n')}\n\nInferences:\n${account.inferences.map(i => `${i.category}: ${i.inference} (${i.confidence}% confidence)`).join('\n')}`}
+            compact
+          />
         </CollapsibleCard>
       </div>
 
@@ -209,7 +289,11 @@ export function ClientProfileTab({ account }: { account: AccountData }) {
       <div className="space-y-4">
 
         {/* Tech Stack */}
-        <CollapsibleCard title="Client Tech Stack">
+        <CollapsibleCard
+          title="Client Tech Stack"
+          infoSources={['IT Glue', 'Kaseya RMM']}
+          infoDefinition="Technology stack sourced from IT Glue documentation and RMM-detected software inventory."
+        >
           <div className="space-y-3">
             <div>
               <div className="text-xs font-semibold mb-2" style={{ color: '#4ade80', letterSpacing: '0.05em' }}>OUR WALLET SHARE</div>
@@ -262,7 +346,7 @@ export function ClientProfileTab({ account }: { account: AccountData }) {
             </div>
           </div>
           <div style={{ borderTop: '1px solid var(--border-faint)', paddingTop: '8px' }}>
-            <div className="text-xs font-semibold mb-2" style={{ color: 'var(--text-muted)', letterSpacing: '0.05em' }}>EXPANSION WHITESPACE</div>
+            <div className="text-xs font-semibold mb-2" style={{ color: 'var(--text-muted)', letterSpacing: '0.05em' }}>STRATEGIC WHITESPACE</div>
             <div className="space-y-1.5">
               {account.expansionOpps.slice(0, 3).map((opp, i) => (
                 <div key={i} className="text-xs py-1" style={{ borderBottom: i < 2 ? '1px solid var(--border-faint)' : 'none' }}>

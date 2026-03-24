@@ -6,7 +6,7 @@ import { AccountCard } from './AccountCard'
 import { Account } from '@/lib/types'
 import { InfoTooltip } from './InfoTooltip'
 import { RedFlagBriefing } from './RedFlagBriefing'
-import { ChevronDown, ChevronRight, Play } from 'lucide-react'
+import { ChevronDown, ChevronRight, Play, Database, BookOpen } from 'lucide-react'
 
 interface PortfolioDashboardProps {
   onAccountClick: (account: Account) => void
@@ -114,24 +114,24 @@ export function PortfolioDashboard({ onAccountClick, onAskAbout }: PortfolioDash
           }}
         />
         <StatCard
-          label="Near-Term Expansion"
-          value="$122–196K"
-          sub="$10–16K MRR · 2 accounts · 60 days"
+          label="Goal Alignment Actions Ready"
+          value="2 accounts"
+          sub="Active goals mapped · gaps identified · ready to discuss"
           color="#4ade80"
           tooltip={{
-            title: 'Near-Term Expansion',
-            definition: 'Additional ARR achievable within 60 days by converting active client goals and documented IT gaps into project or service expansions. MRR equivalent: $10–16K/month.',
+            title: 'Goal Alignment Actions Ready',
+            definition: 'Accounts where client business goals are documented and strategic gaps have been identified — ready for a targeted conversation this quarter. Focus here to deepen strategic partnership and stickiness.',
             sources: ['Autotask', 'Fathom', 'IT Glue', 'Forrester'],
           }}
         />
         <StatCard
-          label="Expansion Whitespace"
-          value="$234–372K"
-          sub="$20–31K MRR · Full portfolio"
+          label="Undocumented Goals"
+          value="5 accounts"
+          sub="Goal capture incomplete · stickiness at risk"
           color="var(--accent)"
           tooltip={{
-            title: 'Expansion Whitespace',
-            definition: 'Total upsell ARR opportunity across all accounts based on undocumented client goals, technology gaps, and industry benchmarks. MRR equivalent: $20–31K/month.',
+            title: 'Undocumented Goals',
+            definition: 'Accounts where business goals are missing or incomplete in the client profile. Without documented goals, strategic alignment conversations are ad hoc — and stickiness depends on individuals rather than process.',
             sources: ['Autotask', 'IT Glue', 'Forrester', 'IDC'],
           }}
         />
@@ -266,6 +266,7 @@ export function PortfolioDashboard({ onAccountClick, onAskAbout }: PortfolioDash
             { label: '📋 QSR Prep — All Accounts',   prompt: 'Prepare a QSR agenda for each account — goals review, roadmap status, and 90-day action items' },
             { label: '🚨 Churn Risk Briefing',        prompt: 'Which accounts are at churn risk because we lack strategic alignment? What is the immediate action plan?' },
             { label: '🔒 Stickiness Assessment',      prompt: 'Which accounts are stickiest and why? Which are most transactional and what would deepen the relationship?' },
+            { label: '📈 MSP Turning Point',           prompt: 'For each account, are we above or below the MSP Turning Point? Which accounts are consuming more in cost-to-serve than they return in MRR contribution?' },
           ].map(action => (
             <button
               key={action.label}
@@ -327,6 +328,61 @@ export function PortfolioDashboard({ onAccountClick, onAskAbout }: PortfolioDash
           {otherAccounts.map(account => (
             <AccountCard key={account.id} account={account} onClick={onAccountClick} />
           ))}
+        </div>
+      </div>
+
+      {/* Data Sources */}
+      <div
+        className="rounded-xl p-4"
+        style={{ background: 'var(--surface)', border: '1px solid var(--border-subtle)' }}
+      >
+        <div className="text-xs font-semibold mb-3" style={{ color: 'var(--text-muted)', letterSpacing: '0.05em' }}>DATA SOURCES</div>
+
+        <div className="mb-3">
+          <div className="flex items-center gap-1.5 mb-2">
+            <Database className="w-3 h-3" style={{ color: 'var(--accent)' }} />
+            <span className="text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>Connected Systems</span>
+          </div>
+          <div className="space-y-1.5">
+            {[
+              { name: 'Autotask', desc: 'PSA · tickets · contracts' },
+              { name: 'Kaseya RMM', desc: 'endpoints · alerts · health' },
+              { name: 'IT Glue', desc: 'docs · assets · passwords' },
+              { name: 'Thread', desc: 'AI triage · ticket routing' },
+              { name: 'Fathom', desc: 'meeting notes · call recordings' },
+              { name: 'MS Teams', desc: 'comms · engagement signals' },
+            ].map(src => (
+              <div key={src.name} className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#4ade80', boxShadow: '0 0 4px #4ade80' }} />
+                  <span className="text-xs font-medium" style={{ color: 'var(--text-primary)' }}>{src.name}</span>
+                </div>
+                <span className="text-xs" style={{ color: 'var(--text-faint)' }}>{src.desc}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ borderTop: '1px solid var(--border-faint)', paddingTop: '10px' }}>
+          <div className="flex items-center gap-1.5 mb-2">
+            <BookOpen className="w-3 h-3" style={{ color: 'var(--accent)' }} />
+            <span className="text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>Industry Research</span>
+          </div>
+          <div className="space-y-1.5">
+            {[
+              { name: 'Forrester', desc: 'infrastructure · lifecycle' },
+              { name: 'IDC', desc: 'market data · benchmarks' },
+              { name: 'Gartner', desc: 'risk · downtime cost' },
+            ].map(src => (
+              <div key={src.name} className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: 'var(--accent-light)' }} />
+                  <span className="text-xs font-medium" style={{ color: 'var(--text-primary)' }}>{src.name}</span>
+                </div>
+                <span className="text-xs" style={{ color: 'var(--text-faint)' }}>{src.desc}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

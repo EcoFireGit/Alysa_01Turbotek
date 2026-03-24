@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { ThumbsUp, ThumbsDown, DollarSign, Shield, TrendingUp, Heart, Layers, PlayCircle } from 'lucide-react'
 import { CollapsibleCard } from '@/components/ui/CollapsibleCard'
+import { SectionChat } from './SectionChat'
 import { AccountData, Outcome } from '@/lib/types'
 
 const RESULT_STYLE: Record<string, { color: string; icon: React.ReactNode }> = {
@@ -37,6 +38,8 @@ export function OutcomesFeedbackTab({ account }: { account: AccountData }) {
             </div>
           }
           defaultOpen
+          infoSources={['Fathom', 'ConnectWise PSA', 'CRM']}
+          infoDefinition="Accuracy ratings reflect whether AI recommendations were acted on and led to the described outcome. Your feedback improves future suggestions."
         >
           <div className="space-y-3">
             {outcomes.map((o, i) => {
@@ -105,19 +108,25 @@ export function OutcomesFeedbackTab({ account }: { account: AccountData }) {
               )
             })}
           </div>
+          <SectionChat
+            sectionTitle="Recommendation Accuracy"
+            accountName={account.name}
+            context={outcomes.map(o => `Recommendation: ${o.recommendation}\nAccurate: ${o.accurate === null ? 'Pending' : o.accurate ? 'Yes' : 'No'}\nResult: ${o.result ?? 'None'}\nNote: ${o.note}`).join('\n\n')}
+            compact
+          />
         </CollapsibleCard>
       </div>
 
       {/* Right 1/3 */}
       <div className="space-y-4">
-        <CollapsibleCard title="Impact Summary">
+        <CollapsibleCard title="Impact Summary" infoSources={['ConnectWise PSA', 'Fathom']} infoDefinition="Aggregated outcome data from closed projects and confirmed client outcomes.">
           <div className="text-center py-6" style={{ color: 'var(--text-muted)' }}>
             <TrendingUp className="w-8 h-8 mx-auto mb-2 opacity-30" />
             <div className="text-xs">Impact analytics coming soon</div>
           </div>
         </CollapsibleCard>
 
-        <CollapsibleCard title="Model Performance">
+        <CollapsibleCard title="Model Performance" infoSources={['Gap Analysis Engine']} infoDefinition="Tracks recommendation hit rate, confidence calibration, and gap-to-outcome traceability over time.">
           <div className="text-center py-6" style={{ color: 'var(--text-muted)' }}>
             <Shield className="w-8 h-8 mx-auto mb-2 opacity-30" />
             <div className="text-xs">Model performance metrics coming soon</div>

@@ -1,8 +1,23 @@
 'use client'
 
-import { ArrowRight, CheckCircle2, Circle, Clock, Zap, Target, TrendingUp, AlertTriangle } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Circle, Clock, Zap, Target, TrendingUp, AlertTriangle, BookOpen, ShieldCheck, BarChart3 } from 'lucide-react'
 import { AccountData } from '@/lib/types'
-import { SectionFeedback } from './SectionFeedback'
+import { SectionChat } from './SectionChat'
+import { InfoTooltip } from '@/components/InfoTooltip'
+
+const OUTCOME_ICON: Record<string, React.ReactNode> = {
+  'Risk Reduction':      <ShieldCheck className="w-3 h-3" />,
+  'Productivity Gain':   <Zap className="w-3 h-3" />,
+  'Strategic Alignment': <Target className="w-3 h-3" />,
+  'Compliance':          <BarChart3 className="w-3 h-3" />,
+}
+
+const OUTCOME_COLOR: Record<string, string> = {
+  'Risk Reduction':      '#f87171',
+  'Productivity Gain':   '#4ade80',
+  'Strategic Alignment': '#a5b4fc',
+  'Compliance':          '#facc15',
+}
 
 const CONFIDENCE_STYLE = {
   High:   { color: '#4ade80', bg: 'rgba(74,222,128,0.10)',  border: 'rgba(74,222,128,0.25)' },
@@ -46,6 +61,7 @@ export function StrategicRoadmapTab({ account }: { account: AccountData }) {
           <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-secondary)' }}>
             Client Business Goals
           </span>
+          <InfoTooltip title="Client Business Goals" definition="Goals documented from discovery calls and CRM notes." sources={['Fathom', 'CRM', 'IT Glue']} />
         </div>
         <div className="flex flex-wrap gap-2">
           {account.businessGoals.map((goal, i) => (
@@ -72,12 +88,15 @@ export function StrategicRoadmapTab({ account }: { account: AccountData }) {
       </div>
 
       {/* Column headers */}
-      <div className="grid grid-cols-12 gap-3 px-1">
+      <div className="grid grid-cols-12 gap-3 px-1" style={{ alignItems: 'center' }}>
         <div className="col-span-3 text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>Business Goal</div>
         <div className="col-span-1" />
         <div className="col-span-3 text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>Strategic Gap</div>
         <div className="col-span-1" />
-        <div className="col-span-4 text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>Strategic Recommendation</div>
+        <div className="col-span-4 flex items-center gap-1 text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>
+          Strategic Recommendation
+          <InfoTooltip title="Strategic Recommendation" definition="AI-generated recommendations mapped to business goals and gaps. Confidence and timing reflect data quality and recency." sources={['Gap Analysis Engine', 'Fathom', 'IT Glue']} />
+        </div>
       </div>
 
       {/* Alignment rows */}
@@ -152,12 +171,13 @@ export function StrategicRoadmapTab({ account }: { account: AccountData }) {
                   >
                     {row.confidence} confidence
                   </span>
-                  {/* Value */}
-                  {row.estimatedValue > 0 && (
-                    <span className="text-xs font-semibold" style={{ color: '#4ade80' }}>
-                      ${row.estimatedValue.toLocaleString()}
-                    </span>
-                  )}
+                  {/* Outcome type */}
+                  <span
+                    className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full"
+                    style={{ color: OUTCOME_COLOR[row.outcomeType], background: OUTCOME_COLOR[row.outcomeType] + '18' }}
+                  >
+                    {OUTCOME_ICON[row.outcomeType]} {row.outcomeType}
+                  </span>
                 </div>
               </div>
             </div>
@@ -165,13 +185,50 @@ export function StrategicRoadmapTab({ account }: { account: AccountData }) {
         })}
       </div>
 
-      <SectionFeedback />
+      <SectionChat
+        sectionTitle="Strategic Roadmap"
+        accountName={account.name}
+        context={account.gapRows.map(g => `Goal: ${g.goal}\nGap: ${g.gap}\nRecommendation: ${g.recommendation}\nTiming: ${g.whyTiming}\nOutcome: ${g.outcomeType}`).join('\n\n')}
+      />
+
+      {/* Industry Research */}
+      {account.industryResearch && account.industryResearch.length > 0 && (
+        <div>
+          <div className="flex items-center gap-2 mb-4 flex-wrap">
+            <div className="w-1 h-4 rounded" style={{ background: 'var(--accent)' }} />
+            <span className="text-sm font-semibold" style={{ color: 'var(--text-hover)' }}>Industry Research</span>
+            <InfoTooltip title="Industry Research" definition="Objective third-party research — no vendor affiliation. Used to support strategic recommendations with independent data." sources={['Forrester', 'IDC', 'Gartner']} />
+            <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: 'rgba(87,94,207,0.1)', color: 'var(--accent)' }}>
+              {account.industryResearch.length} citations
+            </span>
+            <span className="text-xs ml-1" style={{ color: 'var(--text-muted)' }}>— objective, non-vendor research to back your recommendations</span>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {account.industryResearch.map((r, i) => (
+              <div key={i} className="rounded-xl p-4" style={{ background: 'var(--surface)', border: '1px solid var(--border-subtle)' }}>
+                <div className="flex items-start gap-2 mb-3">
+                  <BookOpen className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" style={{ color: 'var(--accent)' }} />
+                  <p className="text-xs leading-relaxed font-medium" style={{ color: 'var(--text-primary)' }}>{r.finding}</p>
+                </div>
+                <div className="flex items-center gap-2 text-xs pl-5 mb-2">
+                  <span className="font-semibold" style={{ color: 'var(--accent-light)' }}>{r.source}</span>
+                  <span style={{ color: 'var(--text-muted)' }}>· {r.year}</span>
+                </div>
+                <div className="text-xs pl-5 italic leading-relaxed" style={{ color: 'var(--text-secondary)', borderTop: '1px solid var(--border-faint)', paddingTop: '8px' }}>
+                  Use this when: {r.relevance}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Tactical Implementation */}
       <div>
         <div className="flex items-center gap-2 mb-4">
           <div className="w-1 h-4 rounded" style={{ background: 'var(--accent)' }} />
           <span className="text-sm font-semibold" style={{ color: 'var(--text-hover)' }}>Tactical Implementation</span>
+          <InfoTooltip title="Tactical Implementation" definition="Action plays tracked in ConnectWise PSA. Status, steps, and touchpoints are synced from project records." sources={['ConnectWise PSA', 'IT Glue']} />
           <span
             className="text-xs px-1.5 py-0.5 rounded"
             style={{ background: 'rgba(87,94,207,0.1)', color: 'var(--accent)' }}

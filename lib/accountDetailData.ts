@@ -114,6 +114,11 @@ export const accountDetailData: AccountData[] = [
       '"The last couple of tickets took longer than we expected to close." (Oct 2025 Fathom)',
       '"We\'re looking at what we\'re spending on IT and whether it makes sense." (Nov 2025 Fathom)',
     ],
+    customerSaidMeta: [
+      { source: 'Fathom', timestamp: 'Nov 2025' },
+      { source: 'Fathom', timestamp: 'Oct 2025' },
+      { source: 'Fathom', timestamp: 'Nov 2025' },
+    ],
     weObserved: [
       'Thread AI triage volume down 60% over 90 days — not normal for a 40-person firm',
       'Kaseya RMM shows 4 endpoints dropped off monitoring — no IT Glue update',
@@ -137,7 +142,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Quick Win',
         estimatedValue: 4800,
-        revenueType: 'New Service',
+        outcomeType: 'Risk Reduction',
       },
       {
         goal: 'Enable business continuity if office systems go down',
@@ -149,7 +154,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Quick Win',
         estimatedValue: 9600,
-        revenueType: 'New Service',
+        outcomeType: 'Risk Reduction',
       },
       {
         goal: 'Reduce cyber liability insurance premium',
@@ -161,7 +166,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Next Quarter',
         estimatedValue: 38400,
-        revenueType: 'New Service',
+        outcomeType: 'Compliance',
       },
       {
         goal: 'Support second office opening without IT disruption',
@@ -173,7 +178,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: false,
         whyTiming: 'Next Quarter',
         estimatedValue: 18000,
-        revenueType: 'New Service',
+        outcomeType: 'Strategic Alignment',
       },
     ],
     narrative: 'Harmon & Associates is TurboTek\'s most urgent renewal risk. A partner-level departure 60 days ago removed the primary champion, and 48 days of silence — combined with a LinkedIn signal from the IT liaison — suggests the firm is in active competitor evaluation mode. The account has no documented business goals, which means TurboTek has no value story to defend at renewal. The ProLaw MFA gap and local-only backup are immediate, defensible risks that give TurboTek a reason to re-engage on substance rather than relationship. The firm\'s second office expansion is also a time-sensitive opportunity that a competitor could capture. The play is a personalised QSR video followed by a structured 2-week re-engagement sprint targeting the incoming managing partner, framed around the firm\'s growth agenda and cyber insurance qualification.',
@@ -249,6 +254,17 @@ export const accountDetailData: AccountData[] = [
       'Cyber liability insurers (Coalition, Chubb) now mandate MFA on all document management systems for legal firms',
       'Bar association ethics opinions in 8 states now require documented data security policies for client data',
       'Mid-market law firms (20–100 attorneys) are the fastest-growing ransomware target segment in 2025',
+    ],
+    industryResearch: [
+      { finding: 'Law firms operating network infrastructure beyond 5 years experience 3.2x more unplanned outages', source: 'Forrester', year: '2024', relevance: 'Harmon\'s Cisco Meraki is expired and the Dell PowerEdge server is 7+ years old — objective basis for refresh conversation with CFO' },
+      { finding: 'Cyber liability insurers now mandate MFA on document management systems as a prerequisite for preferred-tier coverage', source: 'Coalition Cyber Insurance', year: '2026', relevance: 'ProLaw DMS has no MFA — directly satisfies the insurer requirement and is a compliance, not sales, conversation' },
+      { finding: 'Mid-market law firms are the fastest-growing ransomware target segment — 29% reported a breach in 2025', source: 'ABA Tech Report', year: '2025', relevance: 'Local-only Veeam backup with no offsite copy means zero recovery in a ransomware event — use this to justify BCDR urgency' },
+    ],
+    stickinessSignals: [
+      'No QSR attendance in last 2 quarters — relationship thinning to a single point of contact',
+      'Thread AI triage volume down 60% — disengagement pattern, not stability',
+      'IT liaison posted on LinkedIn about evaluating alternative IT solutions',
+      'No NPS response in 2 consecutive cycles',
     ],
     outcomes: [
       {
@@ -406,6 +422,11 @@ export const accountDetailData: AccountData[] = [
       '"I\'ll need you to send me documentation on what you\'re actually covering." (Marcus Webb, Jan 2026 email)',
       '"The compliance stuff is something we really need to get on top of — the last audit scared us." (Sandra Kowalski, Feb 2026)',
     ],
+    customerSaidMeta: [
+      { source: 'Autotask', timestamp: 'Jan 2026' },
+      { source: 'Email', timestamp: 'Jan 2026' },
+      { source: 'Fathom', timestamp: 'Feb 2026' },
+    ],
     weObserved: [
       'EHR access P1 tickets increased 140% in 30 days — 14 tickets all in morning check-in window',
       'IT Glue HIPAA documentation last updated September 2023 — 17 months stale',
@@ -430,7 +451,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Quick Win',
         estimatedValue: 28800,
-        revenueType: 'New Service',
+        outcomeType: 'Compliance',
       },
       {
         goal: 'Eliminate EHR downtime during patient check-in',
@@ -442,7 +463,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Quick Win',
         estimatedValue: 4800,
-        revenueType: 'Upsell',
+        outcomeType: 'Productivity Gain',
       },
       {
         goal: 'Enable physician secure access from satellite clinic',
@@ -454,7 +475,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Next Quarter',
         estimatedValue: 14400,
-        revenueType: 'Upsell',
+        outcomeType: 'Risk Reduction',
       },
       {
         goal: 'Reduce billing errors and protect revenue integrity',
@@ -466,7 +487,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: false,
         whyTiming: 'Next Quarter',
         estimatedValue: 9600,
-        revenueType: 'Upsell',
+        outcomeType: 'Productivity Gain',
       },
     ],
     narrative: 'Crestview Medical Group is a high-revenue P0 account with a compounding risk profile. A P1 ticket surge driven by EHR access failures coincided with an office manager transition, creating both a technical and relationship crisis simultaneously. The HIPAA audit trail gap is an active violation that predates the current situation — it has been in place since 2021 — and the new office manager\'s scrutiny means it is now visible. Sandra Kowalski\'s compliance engagement signal suggests a back-channel to Dr. Chen exists. The play is to bypass Marcus Webb and escalate directly to the practice owner with a 3-item compliance action plan, framing TurboTek as the safeguard against an OCR audit — not just an IT vendor.',
@@ -544,6 +565,17 @@ export const accountDetailData: AccountData[] = [
       'eClinicalWorks issued a credential-sharing security advisory in February 2026 — practices using shared logins are at elevated risk',
       'CMS 2025 data: EHR downtime costs primary care practices an average of $1,200/hour in productivity and patient throughput',
       'HIPAA Journal: 67% of 2025 OCR settlements involved audit trail deficiencies as a contributing violation',
+    ],
+    industryResearch: [
+      { finding: 'OCR civil monetary penalties for HIPAA audit trail violations range from $100 to $50,000 per violation per day — small practices are a Q1 2026 priority audit segment', source: 'HHS Office for Civil Rights', year: '2026', relevance: 'Crestview has a 30-day audit trail retention instead of the required 6 years — this is an active violation, not a risk' },
+      { finding: 'EHR downtime costs primary care practices an average of $1,200/hour in productivity and patient throughput', source: 'CMS', year: '2025', relevance: 'Crestview has 14 P1 EHR access tickets in 30 days during 8–10am — quantify the operational cost for Marcus Webb' },
+      { finding: 'Healthcare practices implementing SSO reduce EHR-related support tickets by 62% within 90 days', source: 'MGMA', year: '2025', relevance: 'Azure AD SSO for eClinicalWorks is the fix for the morning login bottleneck — objective benchmark to back the recommendation' },
+    ],
+    stickinessSignals: [
+      'Marcus Webb actively benchmarking TurboTek against internal expectations he has not shared',
+      'Office manager transition creates a relationship void — previous contact is gone',
+      'P1 ticket surge is visible and frustrating to clinical leadership',
+      'Sandra Kowalski compliance engagement is the only positive signal in the account',
     ],
     outcomes: [
       {
@@ -701,6 +733,12 @@ export const accountDetailData: AccountData[] = [
       '"The floor is slowing down and I need to know when it\'s going to get fixed." (Diane Kooper, Feb 2026 email)',
       '"I\'m genuinely worried about what happens if the backup doesn\'t work." (Sean Briggs, Feb 2026 Autotask)',
     ],
+    customerSaidMeta: [
+      { source: 'QSR / Fathom', timestamp: 'Oct 2025' },
+      { source: 'QSR / Fathom', timestamp: 'Oct 2025' },
+      { source: 'Email', timestamp: 'Feb 2026' },
+      { source: 'Autotask', timestamp: 'Feb 2026' },
+    ],
     weObserved: [
       'Veeam backup job failure logged in Autotask for 6 consecutive weeks — no remediation actioned',
       'Kaseya RMM: 3 Cisco switches showing unresponsive status for 11 days — no alert escalation to client',
@@ -725,7 +763,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Quick Win',
         estimatedValue: 38400,
-        revenueType: 'New Service',
+        outcomeType: 'Risk Reduction',
       },
       {
         goal: 'Support CNC expansion in Q3 without network bottlenecks',
@@ -737,7 +775,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Next Quarter',
         estimatedValue: 28000,
-        revenueType: 'New Service',
+        outcomeType: 'Strategic Alignment',
       },
       {
         goal: 'Protect production floor from cybersecurity events',
@@ -749,7 +787,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Next Quarter',
         estimatedValue: 19200,
-        revenueType: 'New Service',
+        outcomeType: 'Risk Reduction',
       },
       {
         goal: 'Enable real-time inventory visibility across warehouse zones',
@@ -761,7 +799,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: false,
         whyTiming: 'Long-term',
         estimatedValue: 12000,
-        revenueType: 'Upsell',
+        outcomeType: 'Productivity Gain',
       },
     ],
     narrative: 'Valley Fabrication is TurboTek\'s highest operational risk account. Active backup failures for six weeks have left the firm with zero recovery capability, and three EOL switches showing unresponsive status create an imminent production floor outage risk. The CFO has blocked two consecutive refresh proposals — but the calculus changed when Sean Briggs escalated in writing and a competitor was spotted on-site. The play is to go over Sean\'s head directly to Tom Gallagher with a CFO-level business case: the refresh costs less than one downtime event, and the backup failure needs to be disclosed as a material risk, not managed quietly. Timing urgency is provided by the Nexigen competitive threat and the Q3 CNC expansion that the current network cannot support.',
@@ -838,6 +876,18 @@ export const accountDetailData: AccountData[] = [
       'IDC: mid-market manufacturers average $180–240K loss per unplanned IT-related downtime event',
       'NIST SP 800-82 recommends OT/IT network segmentation as a baseline control for all industrial environments',
       'Gartner: 60% of manufacturers with EOL network infrastructure experienced at least one major outage in 2025',
+    ],
+    industryResearch: [
+      { finding: 'Mid-market manufacturers average $180–240K loss per unplanned IT-related downtime event — switch or server failure during a production run is the most common trigger', source: 'IDC', year: '2024', relevance: 'Valley Fab\'s CFO has blocked refresh proposals — this is the objective, non-vendor cost-of-inaction number to bring to Tom Gallagher' },
+      { finding: 'Manufacturing is the #1 ransomware target sector for the third consecutive year — flat OT/IT networks are the primary lateral movement path', source: 'CISA', year: '2025', relevance: 'Valley Fab has no OT/IT segmentation — a compromised office laptop can reach CNC controllers directly' },
+      { finding: '60% of manufacturers with EOL network infrastructure experienced at least one major outage in 2025 — average cost per event exceeded refresh cost within 2 years', source: 'Gartner', year: '2025', relevance: 'Cisco Catalyst 2960 switches are EOL — use this to reframe the refresh as risk mitigation, not a capital purchase' },
+      { finding: 'Standard network infrastructure refresh cycle is 5 years — organisations on year 7+ face a 4x higher likelihood of unplanned failure', source: 'Forrester', year: '2024', relevance: 'Objective third-party benchmark Sean can show a skeptical CFO — not vendor-sourced' },
+    ],
+    stickinessSignals: [
+      'Competitor (Nexigen) was spotted on-site — competitive evaluation is likely underway',
+      'CFO has blocked two consecutive infrastructure refresh proposals',
+      'Backup failure has been active for 6 weeks and was not proactively disclosed to the client',
+      'Sean Briggs escalated in writing — operational frustration is at a threshold',
     ],
     outcomes: [
       {
@@ -996,6 +1046,12 @@ export const accountDetailData: AccountData[] = [
       '"Tickets get resolved fast, no complaints on that side." (Linda Marsh, Feb 2026 CSAT)',
       '"The therapists need to be able to chart in the room — walking to the station wastes 10 minutes per patient." (Dr. Patel, Dec 2025)',
     ],
+    customerSaidMeta: [
+      { source: 'QSR / Fathom', timestamp: 'Dec 2025' },
+      { source: 'Email', timestamp: 'Jan 2026' },
+      { source: 'CSAT Survey', timestamp: 'Feb 2026' },
+      { source: 'QSR / Fathom', timestamp: 'Dec 2025' },
+    ],
     weObserved: [
       'Kaseya RMM: 34 endpoints flagged Windows 10 EOL; 18 with critical patch alerts for 45+ days',
       'Autotask OS-related ticket volume up 55% since EOL date in January 2025',
@@ -1020,7 +1076,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Quick Win',
         estimatedValue: 33600,
-        revenueType: 'Upsell',
+        outcomeType: 'Compliance',
       },
       {
         goal: 'Enable treatment-room documentation for physical therapists',
@@ -1032,7 +1088,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Next Quarter',
         estimatedValue: 7200,
-        revenueType: 'New Service',
+        outcomeType: 'Productivity Gain',
       },
       {
         goal: 'Achieve 99.5% uptime for patient scheduling',
@@ -1044,7 +1100,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Next Quarter',
         estimatedValue: 3600,
-        revenueType: 'Upsell',
+        outcomeType: 'Risk Reduction',
       },
     ],
     narrative: 'Northshore Orthopedics is a well-managed P1 account with a single large blocker: 34 endpoints on Windows 10 EOL, stalled by a budget freeze that followed a building renovation project. The Athenahealth sequencing dependency — which had been the technical justification for delay — was resolved in February 2026 when Athenahealth confirmed Windows 11 compatibility from April. The remaining obstacle is James Okafor\'s capex freeze. A HaaS model converts the spend to monthly opex, sidestepping his objection. Dr. Patel is already aligned on the risk — she simply needs a path. The treatment-room documentation gap is a secondary opportunity that frames TurboTek as a patient throughput partner, not just a compliance vendor.',
@@ -1120,6 +1176,17 @@ export const accountDetailData: AccountData[] = [
       'Athenahealth February 2026 upgrade roadmap confirms Windows 11 compatibility from April 2026',
       'OCR increased HIPAA enforcement activity in 2025 — small-to-mid practices are a priority audit segment',
       'MGMA 2025: practices using mobile EHR documentation in treatment rooms report 18% improvement in appointment throughput',
+    ],
+    industryResearch: [
+      { finding: 'Healthcare organisations running EOL operating systems face 2.4x higher probability of a successful breach — HIPAA Security Rule requires reasonable safeguards', source: 'Forrester', year: '2025', relevance: 'Northshore has 34 endpoints on Windows 10 EOL — this is the objective, non-vendor compliance argument for the HaaS refresh' },
+      { finding: 'HaaS (Hardware-as-a-Service) adoption in healthcare has grown 340% since 2022 — primary driver is converting capex to predictable opex for compliance-driven refreshes', source: 'IDC', year: '2025', relevance: 'James Okafor has a capex freeze — HaaS at $82/device/month sidesteps the objection entirely' },
+      { finding: 'Practices using mobile EHR documentation in treatment rooms report 18% improvement in appointment throughput on average', source: 'MGMA', year: '2025', relevance: 'Treatment-room tablets for PTs recover 80 minutes of billable time daily — frame as a revenue protection argument, not an IT purchase' },
+    ],
+    stickinessSignals: [
+      'Dr. Patel is the sole champion — no redundant relationship if she leaves',
+      'James Okafor\'s budget freeze creates a credibility test for TurboTek\'s ability to find solutions',
+      'Athenahealth sequencing blocker is now resolved — momentum window is open but closing',
+      'No QSR scheduled in 3 months — relationship at risk of going passive',
     ],
     outcomes: [
       {
@@ -1276,6 +1343,11 @@ export const accountDetailData: AccountData[] = [
       '"Can you send me documentation on exactly what systems you manage for us?" (Marcus Flynn, Jan 2026)',
       '"We\'re opening a third site later this year — IT needs to be ready for that." (Dana Reyes, Nov 2025 QSR)',
     ],
+    customerSaidMeta: [
+      { source: 'Fathom', timestamp: 'Feb 2026' },
+      { source: 'Email', timestamp: 'Jan 2026' },
+      { source: 'QSR / Fathom', timestamp: 'Nov 2025' },
+    ],
     weObserved: [
       'Autotask: ERP sync tickets unresolved for 19 days — Thread AI recommended REST adapter fix, not yet actioned',
       'IT Glue: DC2 asset inventory incomplete — no documentation for 12 endpoints at second site',
@@ -1300,7 +1372,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Quick Win',
         estimatedValue: 6400,
-        revenueType: 'New Service',
+        outcomeType: 'Productivity Gain',
       },
       {
         goal: 'Support third distribution centre opening in Q4 2026',
@@ -1312,7 +1384,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: false,
         whyTiming: 'Next Quarter',
         estimatedValue: 41600,
-        revenueType: 'New Service',
+        outcomeType: 'Strategic Alignment',
       },
       {
         goal: 'Enable remote route management for 14 delivery drivers',
@@ -1324,7 +1396,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Next Quarter',
         estimatedValue: 8400,
-        revenueType: 'Upsell',
+        outcomeType: 'Productivity Gain',
       },
     ],
     narrative: 'Lakeview Logistics is a P1 account caught in a transition state. A new IT manager arrived in December 2025 with no context, and an ERP integration stall that TurboTek has the certified capability to fix in 4 days has been sitting unresolved for 19 days. The operational cost is accumulating, Phil Stackhouse is frustrated, and Dana Reyes is distracted. The ERP fix is the fastest credibility win available — executing it quickly creates the trust foundation for a relationship reset with Marcus Flynn and positions TurboTek ahead of the third distribution centre expansion, which is the most significant expansion event in the P1 tier. The play is to escalate directly to Dana Reyes, fix the ERP issue within 4 days, and use that momentum to schedule a proper onboarding session with Marcus Flynn.',
@@ -1400,6 +1472,17 @@ export const accountDetailData: AccountData[] = [
       'CISA 2025: transportation and logistics sector is the 4th most targeted industry for ransomware — operational disruption leverage is the primary attack motivation',
       'Gartner: 72% of logistics companies planning facility expansion in 2026 cite IT infrastructure readiness as their top operational risk',
       'Epicor 2025 survey: customers using REST API integration report 65% reduction in ERP-related support tickets',
+    ],
+    industryResearch: [
+      { finding: 'Mid-market logistics and distribution companies lose $90–130K/year to manual inventory management overhead from ERP integration failures', source: 'IDC', year: '2025', relevance: 'The ERP sync failure has been live for 19 days — use this to quantify the cost-of-inaction for Dana Reyes, not just the technical problem' },
+      { finding: '72% of logistics companies planning facility expansion in 2026 cite IT infrastructure readiness as their top operational risk', source: 'Gartner', year: '2025', relevance: 'Lakeview\'s DC3 expansion is the most significant event in the P1 tier — TurboTek must be positioned as the infrastructure partner before the June budget cycle' },
+      { finding: 'Standard network infrastructure refresh cycle is 5 years — organisations delaying beyond this threshold face 4x higher outage frequency', source: 'Forrester', year: '2024', relevance: 'Objective benchmark for any infrastructure proposal — positions TurboTek as an advisor citing research, not a vendor pushing hardware' },
+    ],
+    stickinessSignals: [
+      'Marcus Flynn (new IT manager) has no established relationship with TurboTek — high churn risk if relationship is not built in 60 days',
+      '19-day ERP stall is accumulating operational cost and eroding Dana Reyes\'s confidence',
+      'Phil Stackhouse\'s frustration is visible — operational pain is near a threshold',
+      'DC3 expansion is a relationship test — if TurboTek is not engaged, a competitor will be',
     ],
     outcomes: [
       {
@@ -1557,6 +1640,11 @@ export const accountDetailData: AccountData[] = [
       '"Dr. Fontaine wants to reduce no-shows but we haven\'t found a good solution yet." (Lisa Huang, Nov 2025 ticket)',
       '"We\'re looking at a second location down the road — probably 2027." (Lisa Huang, Nov 2025)',
     ],
+    customerSaidMeta: [
+      { source: 'CSAT Survey', timestamp: 'Jan 2026' },
+      { source: 'Autotask', timestamp: 'Nov 2025' },
+      { source: 'Fathom', timestamp: 'Nov 2025' },
+    ],
     weObserved: [
       'Autotask: zero P1 or P2 incidents in 5 months — consistently low ticket volume',
       'Kaseya RMM: patch compliance at 89% — above average but 11% gap to close',
@@ -1581,7 +1669,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Next Quarter',
         estimatedValue: 10400,
-        revenueType: 'Upsell',
+        outcomeType: 'Compliance',
       },
       {
         goal: 'Reduce patient no-shows by 20%',
@@ -1593,7 +1681,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Quick Win',
         estimatedValue: 1800,
-        revenueType: 'New Service',
+        outcomeType: 'Productivity Gain',
       },
       {
         goal: 'Enable operatory access to patient records without dedicated workstations per room',
@@ -1605,7 +1693,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: false,
         whyTiming: 'Long-term',
         estimatedValue: 7680,
-        revenueType: 'Upsell',
+        outcomeType: 'Productivity Gain',
       },
     ],
     narrative: 'Meridian Dental Partners is TurboTek\'s most stable account with the shallowest relationship. Zero incidents in 5 months, consistent CSAT above 4.4/5, and a compliant infrastructure — but no QSR in 6 months, no documented business goals, and no relationship with the practice owner. The Forrester benchmark is unambiguous: practices with documented IT roadmaps churn MSPs at 40% lower rates. The entry point is not a sales conversation — it is a HIPAA documentation health check and the Dentrix appointment reminder integration, both of which speak directly to Dr. Fontaine\'s operational goals. Getting Dr. Fontaine in the room for the first time converts a single-threaded, transactional account into a defended relationship ahead of the 2027 second-location expansion.',
@@ -1681,6 +1769,17 @@ export const accountDetailData: AccountData[] = [
       'Forrester dental MSP benchmark: practices with a documented IT roadmap have 40% lower MSP churn rate',
       'HIPAA Journal: malpractice insurers in 22 states added annual HIPAA documentation review as a policy requirement in 2025',
       'ADA 2025 Technology Report: 68% of dental practices using automated appointment reminders report reduced no-show rates — average reduction of 18%',
+    ],
+    industryResearch: [
+      { finding: 'Dental practices with automated appointment reminders reduce no-show rates by 15–25% — at the average $180 appointment value, this is $74K/year in recovered revenue for a 40-appointment-per-week practice', source: 'ADA Tech Report', year: '2025', relevance: 'Dentrix-Teams integration is available since January 2026 — this is the door-opener to a conversation with Dr. Fontaine in her language: patient outcomes, not IT' },
+      { finding: 'Practices with a documented IT roadmap have a 40% lower MSP churn rate — accounts without a roadmap are 2.3x more likely to switch providers at renewal', source: 'Forrester', year: '2025', relevance: 'Meridian Dental has no documented goals and no QSR in 6 months — stickiness is entirely relationship-dependent right now' },
+      { finding: 'Malpractice insurers in 22 states added annual HIPAA documentation review as a policy requirement in 2025', source: 'HIPAA Journal', year: '2025', relevance: 'IT Glue HIPAA documentation is 72% complete — objective insurer requirement makes this a compliance conversation, not an upsell' },
+    ],
+    stickinessSignals: [
+      'No QSR scheduled in 6 months — relationship has gone passive',
+      'Practice owner (Dr. Fontaine) has never met TurboTek — zero relationship at the decision-maker level',
+      'Entire relationship depends on a single point of contact (Lisa Huang)',
+      'Zero incidents and high CSAT — stable but shallow, not sticky',
     ],
     outcomes: [
       {
@@ -1841,6 +1940,12 @@ export const accountDetailData: AccountData[] = [
       '"TurboTek has been exceptional — I recommended you to two other firms at the association dinner." (Margaret Graham, Feb 2026)',
       '"I want to make sure the new office has everything set up properly from day one." (Margaret Graham, Dec 2025)',
     ],
+    customerSaidMeta: [
+      { source: 'QSR / Fathom', timestamp: 'Dec 2025' },
+      { source: 'QSR / Fathom', timestamp: 'Dec 2025' },
+      { source: 'Email', timestamp: 'Feb 2026' },
+      { source: 'QSR / Fathom', timestamp: 'Dec 2025' },
+    ],
     weObserved: [
       'Autotask: zero P1 or P2 incidents in 7 months — best performance record in the portfolio',
       'Kaseya RMM: 97% patch compliance — highest in portfolio',
@@ -1865,7 +1970,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Quick Win',
         estimatedValue: 57600,
-        revenueType: 'New Service',
+        outcomeType: 'Compliance',
       },
       {
         goal: 'Enable litigation team to draft and review documents faster with AI',
@@ -1877,7 +1982,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Quick Win',
         estimatedValue: 29040,
-        revenueType: 'Upsell',
+        outcomeType: 'Productivity Gain',
       },
       {
         goal: 'Open second city office without IT disruption to main office',
@@ -1889,7 +1994,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Next Quarter',
         estimatedValue: 50400,
-        revenueType: 'New Service',
+        outcomeType: 'Strategic Alignment',
       },
     ],
     narrative: 'Graham Chambers LLP is the highest-health legal account in the portfolio and TurboTek\'s best near-term expansion opportunity. Zero P1/P2 incidents in 7 months, a managing partner who publicly refers TurboTek to peers, and a named, specific question about cyber insurance qualification create a rare situation: an expansion conversation that the client is already asking for. The MDR retainer directly answers Margaret Graham\'s Coalition question. The M365 Copilot deployment addresses both the litigation team\'s AI demand and an unrecognised privilege risk from consumer AI use. The second office is a Q3 2026 infrastructure project with a firm timeline and an engaged sponsor. The play is to close all three before October renewal and propose a 3-year agreement — making this the highest per-account expansion outcome in the portfolio.',
@@ -1970,6 +2075,17 @@ export const accountDetailData: AccountData[] = [
       'ABA 2025: 68% of attorneys at mid-sized firms report using consumer AI tools for work tasks — bar associations in 12 states have issued guidance on privilege implications',
       'Forrester Legal 2025: firms with documented security posture renew MSP contracts at 2.8x the rate of undocumented firms',
       'iManage January 2026: Microsoft Copilot integration now available for Work 10 cloud customers — legal AI drafting within the privileged document environment',
+    ],
+    industryResearch: [
+      { finding: 'Coalition Q1 2026 updated preferred-tier requirements now mandate MDR and PAM for law firms — standard-tier premiums are 18–40% higher', source: 'Coalition Cyber Insurance', year: '2026', relevance: 'Margaret Graham asked directly about qualifying for the preferred rate — this is the objective answer: MDR + PAM is the path, and the premium difference is $28K/year' },
+      { finding: '68% of attorneys at mid-sized firms use consumer AI tools for work tasks — bar associations in 12 states have issued guidance classifying this as a privilege risk', source: 'ABA', year: '2025', relevance: 'Graham\'s litigation team is using consumer ChatGPT for privileged matter work — this is an ethics violation risk, not just an IT issue' },
+      { finding: 'Firms with documented security posture renew MSP contracts at 2.8x the rate of undocumented firms', source: 'Forrester Legal', year: '2025', relevance: 'Graham Chambers is an expand account — this benchmark reinforces why the MDR + Copilot combination is a 3-year renewal anchor, not just a Q2 project' },
+    ],
+    stickinessSignals: [
+      'Managing partner publicly refers TurboTek to peers at industry events — net promoter at the highest level',
+      'No P1/P2 incidents in 7 months — delivery is solid and visible to leadership',
+      'Margaret Graham attends every QSR and asks substantive questions',
+      'Multiple expansion signals active simultaneously — insurance, AI, second office',
     ],
     outcomes: [
       {
@@ -2133,6 +2249,12 @@ export const accountDetailData: AccountData[] = [
       '"I want TurboTek involved in the 4th clinic from the beginning — not brought in to fix things after." (Alicia Torres, Feb 2026)',
       '"If the Copilot thing is included in our licence, why aren\'t we using it?" (Dr. Webb, Feb 2026)',
     ],
+    customerSaidMeta: [
+      { source: 'Fathom', timestamp: 'Feb 2026' },
+      { source: 'Fathom', timestamp: 'Jan 2026' },
+      { source: 'Fathom', timestamp: 'Feb 2026' },
+      { source: 'Fathom', timestamp: 'Feb 2026' },
+    ],
     weObserved: [
       'Kaseya RMM: 98% patch compliance; zero critical alerts in 90 days — best technical health in portfolio',
       'Fathom: Dr. Webb referenced telehealth expansion in 3 separate sessions in Jan–Feb 2026',
@@ -2157,7 +2279,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Quick Win',
         estimatedValue: 76800,
-        revenueType: 'New Service',
+        outcomeType: 'Strategic Alignment',
       },
       {
         goal: 'Reduce clinical administrative overhead by 30% using AI tools',
@@ -2169,7 +2291,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Quick Win',
         estimatedValue: 4200,
-        revenueType: 'Upsell',
+        outcomeType: 'Productivity Gain',
       },
       {
         goal: 'Achieve HIPAA HITECH compliance certification for telehealth platform',
@@ -2181,7 +2303,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Next Quarter',
         estimatedValue: 12000,
-        revenueType: 'New Service',
+        outcomeType: 'Compliance',
       },
       {
         goal: 'Enable TurboTek as primary IT partner for 4th clinic opening in 2027',
@@ -2193,7 +2315,7 @@ export const accountDetailData: AccountData[] = [
         exposeToClient: true,
         whyTiming: 'Next Quarter',
         estimatedValue: 83600,
-        revenueType: 'New Service',
+        outcomeType: 'Strategic Alignment',
       },
     ],
     narrative: 'Pinnacle Health Systems is TurboTek\'s highest-health, highest-potential account. The COO is an active champion, the Director of IT requests TurboTek\'s input on all vendor decisions, the Compliance Officer is sharing internal insurer requirements proactively, and the account has zero incidents in 90 days. The April QSR is a named opportunity: Dr. Webb has referenced telehealth expansion three times in 60 days, Copilot is available in the existing licence and undeployed, and Sandra Kim has flagged a HITECH certification deadline that creates a forced Q2 start. TurboTek\'s job is to walk into the April QSR with a "Telehealth Readiness Assessment" already in hand, a Copilot deployment queued up as a value-add surprise, and a 3-year renewal draft that includes the 4th clinic scope. This is the portfolio\'s single highest-value quarter.',
@@ -2274,6 +2396,18 @@ export const accountDetailData: AccountData[] = [
       'CMS 2026: HIPAA HITECH certification required for Medicare telehealth billing reimbursement effective Q3 2026',
       'Microsoft February 2026: Copilot included in all M365 E5 licences at no additional cost — eligible for deployment immediately',
       'KLAS Research 2025: healthcare systems using telehealth services report 22% increase in new patient acquisition within 12 months of launch',
+    ],
+    industryResearch: [
+      { finding: 'HIPAA HITECH certification is required for Medicare telehealth billing reimbursement effective Q3 2026 — minimum 90-day certification timeline', source: 'CMS', year: '2026', relevance: 'Pinnacle\'s Q4 telehealth launch requires HITECH certification to start in Q2 — this creates a forced, non-negotiable timeline that TurboTek must lead' },
+      { finding: 'Healthcare systems using telehealth services report 22% increase in new patient acquisition within 12 months of launch', source: 'KLAS Research', year: '2025', relevance: 'Telehealth is a board commitment for Pinnacle — frame TurboTek\'s role as enabling the strategic outcome, not delivering a technical project' },
+      { finding: 'M365 Copilot is included in all E5 licences at no additional cost from February 2026 — deployable immediately by the licence holder', source: 'Microsoft', year: '2026', relevance: 'Pinnacle has M365 E5 and Copilot is undeployed — TurboTek should deploy this as a value-add surprise at the April QSR, not after a proposal process' },
+      { finding: 'Healthcare organisations running EOL operating systems face 2.4x higher breach probability — a breach during a telehealth launch would trigger CMS coverage suspension', source: 'Forrester', year: '2025', relevance: 'Any outstanding EOL endpoint gaps need to be resolved before telehealth activation — compliance continuity protects the strategic launch' },
+    ],
+    stickinessSignals: [
+      'COO (Dr. Webb) is an active champion — references the relationship publicly and drives internal alignment',
+      'Director of IT (Alicia Torres) requests TurboTek input on all vendor decisions',
+      'Compliance Officer (Sandra Kim) proactively shares internal insurer requirements with TurboTek',
+      'Zero incidents in 90 days — delivery trust is at its highest point in the relationship',
     ],
     outcomes: [
       {

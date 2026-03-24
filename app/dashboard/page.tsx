@@ -38,7 +38,19 @@ export default function DashboardPage() {
 
   const avgHealth = Math.round(accountDetailData.reduce((s, a) => s + a.health, 0) / accountDetailData.length)
   const atRiskCount = accountDetailData.filter(a => a.stage === 'At Risk').length
-  const totalArr = '$100M'
+  const totalArrRaw = accountDetailData.reduce((s, a) => {
+    const num = parseFloat(a.arr.replace(/[^0-9.]/g, ''))
+    const isM = a.arr.includes('M')
+    const isK = a.arr.includes('K')
+    return s + (isM ? num * 1_000_000 : isK ? num * 1_000 : num)
+  }, 0)
+  const totalArr = totalArrRaw >= 1_000_000
+    ? `$${(totalArrRaw / 1_000_000).toFixed(1)}M`
+    : `$${(totalArrRaw / 1_000).toFixed(0)}K`
+  const totalMrrRaw = Math.round(totalArrRaw / 12)
+  const totalMrr = totalMrrRaw >= 1_000_000
+    ? `$${(totalMrrRaw / 1_000_000).toFixed(1)}M`
+    : `$${(totalMrrRaw / 1_000).toFixed(0)}K`
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg)', color: 'var(--text-primary)' }}>
@@ -59,11 +71,12 @@ export default function DashboardPage() {
       <div className="px-6 py-6 max-w-6xl mx-auto space-y-6">
 
         {/* Stats row */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-5 gap-4">
           {[
             { label: 'Avg Health Score', value: avgHealth.toString(), icon: <TrendingUp className="w-5 h-5" />, color: healthColor(avgHealth) },
             { label: 'At Risk Accounts', value: atRiskCount.toString(), icon: <AlertTriangle className="w-5 h-5" />, color: '#f87171' },
             { label: 'Total ARR', value: totalArr, icon: <DollarSign className="w-5 h-5" />, color: 'var(--accent)' },
+            { label: 'Total MRR', value: totalMrr, icon: <DollarSign className="w-5 h-5" />, color: '#4ade80' },
             { label: 'Total Accounts', value: accountDetailData.length.toString(), icon: <Users className="w-5 h-5" />, color: 'var(--text-hover)' },
           ].map((stat) => (
             <div key={stat.label} className="rounded-xl p-4" style={{ background: 'var(--surface)', border: '1px solid var(--border-subtle)' }}>
