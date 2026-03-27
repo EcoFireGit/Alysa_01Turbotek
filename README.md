@@ -1,6 +1,6 @@
 # Alysa — Strategic Client Alignment Engine
 
-An AI-powered client intelligence platform for MSPs, built by [Prioriwise](https://prioriwise.com). Alysa acts as a senior management consultant, helping MSP principals and technology alignment managers reduce churn, deepen client relationships, and drive strategic growth.
+An AI-powered client intelligence platform for MSPs, built by [Prioriwise](https://prioriwise.ai). Alysa acts as a senior management consultant, helping MSP principals and technology alignment managers reduce churn, deepen client relationships, and drive strategic growth.
 
 This instance is demo-configured for **TurboTek** — an 8-account portfolio with $2.4M ARR ($200K MRR).
 
@@ -105,4 +105,4 @@ To reconfigure Alysa for a different MSP client, update `lib/system-prompt.ts` (
 
 ## Built With
 
-Alysa is a [Prioriwise](https://prioriwise.com) customer demo. The underlying AI engine uses Claude claude-opus-4-6 with adaptive thinking enabled for deeper multi-step reasoning on complex portfolio questions.
+Alysa is a [Prioriwise](https://prioriwise.ai) customer demo. The underlying AI engine uses Claude claude-opus-4-6 with adaptive thinking enabled for deeper multi-step reasoning on complex portfolio questions.
