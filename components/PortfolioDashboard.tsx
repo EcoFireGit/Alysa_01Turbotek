@@ -1,10 +1,12 @@
 'use client'
 
+import { useState } from 'react'
 import { accounts, portfolioStats } from '@/lib/accounts'
 import { AccountCard } from './AccountCard'
 import { Account } from '@/lib/types'
 import { InfoTooltip } from './InfoTooltip'
 import { RedFlagBriefing } from './RedFlagBriefing'
+import { ChevronDown, ChevronRight, Play } from 'lucide-react'
 
 interface PortfolioDashboardProps {
   onAccountClick: (account: Account) => void
@@ -32,7 +34,47 @@ function StatCard({ label, value, sub, color, tooltip }: {
   )
 }
 
+const DEMO_SCENES = [
+  {
+    step: 1,
+    title: 'Pre-Strategy Call Brief',
+    cue: 'TAM does the prep, you come in focused on key issues. Show what that looks like in 10 seconds.',
+    prompt: 'What should I know before my strategy meeting with Harmon & Associates this week? Give me the key issues, open items, and what has changed since our last meeting.',
+  },
+  {
+    step: 2,
+    title: 'Business Goal Capture Framework',
+    cue: '"I don\'t have a structured approach to capturing goals." Show the framework that fixes that.',
+    prompt: 'Show me the business goal profile for Harmon & Associates — what goals are documented, what is missing, and what questions should I be asking to fill the gaps?',
+  },
+  {
+    step: 3,
+    title: 'Goals → Strategy → Tactics',
+    cue: 'Not a sales report. Map what they said they want to the conversation I should be having this quarter.',
+    prompt: 'For Harmon & Associates, map their current business goals to strategic gaps and give me the tactical recommendations I should bring to this quarter\'s strategy meeting.',
+  },
+  {
+    step: 4,
+    title: 'Industry Research to Back the Recommendation',
+    cue: '"I\'ve struggled getting objective research… it comes from the vendor." Show the CFO a citation, not an opinion.',
+    prompt: 'What objective industry research supports recommending a network infrastructure refresh for Valley Fabrication Inc.? They are on year 7 of their current setup and the owner is pushing back.',
+  },
+  {
+    step: 5,
+    title: 'Stickiness & Churn Signal',
+    cue: 'Surface who is trending toward disengagement before it becomes a problem.',
+    prompt: 'Which of my accounts show the lowest engagement and are most at risk of going silent or disengaging? What is the early warning signal for each?',
+  },
+  {
+    step: 6,
+    title: 'The Dropped-Call Moment',
+    cue: '"Does he want to fire me?" Answer that question in 10 seconds.',
+    prompt: 'A CFO from one of my accounts just called me and dropped the line before I could answer. What do I know about that account right now — sentiment trend, open issues, anything that changed recently?',
+  },
+]
+
 export function PortfolioDashboard({ onAccountClick, onAskAbout }: PortfolioDashboardProps) {
+  const [demoOpen, setDemoOpen] = useState(false)
   const p0Accounts = accounts.filter(a => a.priority === 'P0')
   const expandAccounts = accounts.filter(a => a.priority === 'expand')
   const otherAccounts = accounts.filter(a => a.priority !== 'P0' && a.priority !== 'expand')
@@ -134,6 +176,83 @@ export function PortfolioDashboard({ onAccountClick, onAskAbout }: PortfolioDash
           <div className="h-full rounded-sm" style={{ width: '29%', background: '#4ade80' }} title="Expand: $7.0M" />
           <div className="h-full rounded-sm" style={{ width: '9%', background: '#94a3b8' }} title="Stable: $2.2M" />
         </div>
+      </div>
+
+      {/* TurboTek Demo Script */}
+      <div
+        className="rounded-xl overflow-hidden"
+        style={{ border: '1px solid var(--accent-border)', background: 'var(--accent-bg)' }}
+      >
+        <button
+          className="w-full flex items-center justify-between px-4 py-3 text-left"
+          onClick={() => setDemoOpen(o => !o)}
+        >
+          <div className="flex items-center gap-2">
+            <Play className="w-3.5 h-3.5" style={{ color: 'var(--accent-light)' }} />
+            <span className="text-xs font-semibold" style={{ color: 'var(--accent-light)' }}>TURBOTEK DEMO SCRIPT</span>
+            <span
+              className="text-xs px-1.5 py-0.5 rounded-full"
+              style={{ background: 'var(--accent-bg-hover)', color: 'var(--accent-light)', border: '1px solid var(--accent-border-strong)', fontSize: '10px' }}
+            >
+              6 scenes
+            </span>
+          </div>
+          {demoOpen
+            ? <ChevronDown className="w-3.5 h-3.5" style={{ color: 'var(--accent-light)' }} />
+            : <ChevronRight className="w-3.5 h-3.5" style={{ color: 'var(--accent-light)' }} />
+          }
+        </button>
+
+        {demoOpen && (
+          <div className="px-3 pb-3 space-y-2" style={{ borderTop: '1px solid var(--accent-border)' }}>
+            <p className="text-xs pt-3 pb-1" style={{ color: 'var(--accent-light)', opacity: 0.7 }}>
+              Core use case: Goals → Strategy → Tactics · Stickiness & churn prevention
+            </p>
+            {DEMO_SCENES.map(scene => (
+              <div
+                key={scene.step}
+                className="rounded-lg p-3"
+                style={{ background: 'var(--surface)', border: '1px solid var(--border-subtle)' }}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-start gap-2 flex-1 min-w-0">
+                    <div
+                      className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center font-bold mt-0.5"
+                      style={{ background: 'var(--accent-bg-hover)', color: 'var(--accent-light)', border: '1px solid var(--accent-border-strong)', fontSize: '10px' }}
+                    >
+                      {scene.step}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-xs font-semibold mb-0.5" style={{ color: 'var(--text-hover)' }}>{scene.title}</div>
+                      <div className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{scene.cue}</div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => onAskAbout(scene.prompt)}
+                    className="flex-shrink-0 flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg transition-all"
+                    style={{
+                      background: 'var(--accent-bg-soft)',
+                      color: 'var(--accent-light)',
+                      border: '1px solid var(--accent-border-medium)',
+                      whiteSpace: 'nowrap',
+                    }}
+                    onMouseEnter={e => {
+                      (e.currentTarget).style.background = 'var(--accent-bg-hover)'
+                      ;(e.currentTarget).style.borderColor = 'var(--accent-border-max)'
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget).style.background = 'var(--accent-bg-soft)'
+                      ;(e.currentTarget).style.borderColor = 'var(--accent-border-medium)'
+                    }}
+                  >
+                    <Play className="w-2.5 h-2.5" />
+                    Run
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Quick actions */}
