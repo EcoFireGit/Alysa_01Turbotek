@@ -7,6 +7,7 @@ export interface Stakeholder {
 export interface GapRow {
   goal: string
   currentReality: string
+  technicalAlignment?: string
   gap: string
   impact: string
   recommendation: string
