@@ -11,17 +11,22 @@ import { PlanPlaysTab } from './PlanPlaysTab'
 import { StrategicRoadmapTab } from './StrategicRoadmapTab'
 import { QBRExecBriefTab } from './QBRExecBriefTab'
 import { OutcomesFeedbackTab } from './OutcomesFeedbackTab'
+import { ValuePathTab } from './ValuePathTab'
+import { ValuePath2Tab } from './ValuePath2Tab'
+import { WorkspaceProvider } from './WorkspaceContext'
 
-type TabId = 'prep' | 'profile' | 'gaps' | 'plays' | 'roadmap' | 'qbr' | 'outcomes'
+type TabId = 'prep' | 'profile' | 'gaps' | 'plays' | 'roadmap' | 'valuepath' | 'valuepath2' | 'qbr' | 'outcomes'
 
 const TABS: { id: TabId; label: string; icon: React.ReactNode; tooltip: string }[] = [
-  { id: 'prep',     label: 'Meeting Prep',          icon: <CalendarDays className="w-4 h-4" />,    tooltip: 'Pre-call brief: goals, flags, stickiness signals' },
-  { id: 'profile',  label: 'Client Profile',       icon: <UserCircle className="w-4 h-4" />,      tooltip: 'Capture and organize client intel' },
-  { id: 'gaps',     label: 'Gap Analysis',          icon: <Layers className="w-4 h-4" />,          tooltip: 'Compare current state vs. ideal state' },
-  { id: 'plays',    label: 'Plan & Plays',          icon: <PlayCircle className="w-4 h-4" />,      tooltip: 'Action plans and discovery plays' },
-  { id: 'roadmap',  label: 'Strategic Roadmap',     icon: <Map className="w-4 h-4" />,             tooltip: 'Business goals aligned to strategy and tactics' },
-  { id: 'qbr',      label: 'QSR / Exec Brief',      icon: <FileText className="w-4 h-4" />,        tooltip: 'Generate a client-facing executive summary' },
-  { id: 'outcomes', label: 'Outcomes & Feedback',   icon: <MessageSquareText className="w-4 h-4" />, tooltip: 'Track recommendation accuracy' },
+  { id: 'prep',       label: 'Meeting Prep',        icon: <CalendarDays className="w-4 h-4" />,    tooltip: 'Pre-call brief: goals, flags, stickiness signals' },
+  { id: 'profile',    label: 'Client Profile',      icon: <UserCircle className="w-4 h-4" />,      tooltip: 'Capture and organize client intel' },
+  { id: 'gaps',       label: 'Gap Analysis',         icon: <Layers className="w-4 h-4" />,          tooltip: 'Compare current state vs. ideal state' },
+  { id: 'plays',      label: 'Plan & Plays',         icon: <PlayCircle className="w-4 h-4" />,      tooltip: 'Action plans and discovery plays' },
+  { id: 'roadmap',    label: 'Strategic Roadmap',    icon: <Map className="w-4 h-4" />,             tooltip: 'Business goals aligned to strategy and tactics' },
+  { id: 'valuepath',  label: 'Value-Path™',          icon: <Sparkles className="w-4 h-4" />,        tooltip: 'Prioriwise Growth Engine — 6-step value workflow' },
+  { id: 'valuepath2', label: 'Value-Path™ 2',        icon: <Layers className="w-4 h-4" />,          tooltip: 'Backlog-to-Revenue Engine — map PSA projects to business goals' },
+  { id: 'qbr',        label: 'Quarterly Strategy Review (QSR)', icon: <FileText className="w-4 h-4" />,        tooltip: 'Generate a client-facing executive summary' },
+  { id: 'outcomes',   label: 'Outcomes & Feedback',  icon: <MessageSquareText className="w-4 h-4" />, tooltip: 'Track recommendation accuracy' },
 ]
 
 export function AccountDetailView({ accountId }: { accountId: string }) {
@@ -144,15 +149,19 @@ export function AccountDetailView({ accountId }: { accountId: string }) {
       </div>
 
       {/* Tab content */}
-      <div className="px-6 py-6 max-w-7xl mx-auto">
-        {activeTab === 'prep'     && <MeetingPrepTab account={account} />}
-        {activeTab === 'profile'  && <ClientProfileTab account={account} />}
-        {activeTab === 'gaps'     && <GapAnalysisTab account={account} />}
-        {activeTab === 'plays'    && <PlanPlaysTab account={account} />}
-        {activeTab === 'roadmap'  && <StrategicRoadmapTab account={account} />}
-        {activeTab === 'qbr'      && <QBRExecBriefTab account={account} />}
-        {activeTab === 'outcomes' && <OutcomesFeedbackTab account={account} />}
-      </div>
+      <WorkspaceProvider account={account}>
+        <div className="px-6 py-6 max-w-7xl mx-auto">
+          {activeTab === 'prep'      && <MeetingPrepTab account={account} />}
+          {activeTab === 'profile'   && <ClientProfileTab account={account} />}
+          {activeTab === 'gaps'      && <GapAnalysisTab account={account} />}
+          {activeTab === 'plays'     && <PlanPlaysTab account={account} />}
+          {activeTab === 'roadmap'   && <StrategicRoadmapTab account={account} />}
+          {activeTab === 'valuepath'  && <ValuePathTab account={account} />}
+          {activeTab === 'valuepath2' && <ValuePath2Tab account={account} />}
+          {activeTab === 'qbr'        && <QBRExecBriefTab account={account} />}
+          {activeTab === 'outcomes'  && <OutcomesFeedbackTab account={account} />}
+        </div>
+      </WorkspaceProvider>
     </div>
   )
 }

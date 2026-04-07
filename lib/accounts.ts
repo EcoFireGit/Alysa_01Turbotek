@@ -37,7 +37,7 @@ export const accounts: Account[] = [
     blockerMatch: {
       blocker: 'Partner-level contact departed. No replacement champion. Account silent ahead of renewal.',
       solution: 'Sent a personalised business review video referencing a specific IT milestone from their last strategy meeting. Followed by a structured 2-week re-engagement sprint with the incoming partner.',
-      resolvedBy: 'TurboTek Account Recovery Playbook — Jan 2025',
+      resolvedBy: 'Turbotek Account Recovery Playbook — Jan 2025',
       matchConfidence: 87,
     },
   },
@@ -82,7 +82,7 @@ export const accounts: Account[] = [
     blockerMatch: {
       blocker: 'HIPAA compliance gap escalating with new management contact, no one owns resolution internally.',
       solution: 'Scheduled emergency 30-min triage call with practice administrator bypassing helpdesk. Created a compliance action plan within 48 hours. Resolved in 7 days.',
-      resolvedBy: 'TurboTek Compliance Fast-Track — Oct 2024',
+      resolvedBy: 'Turbotek Compliance Fast-Track — Oct 2024',
       matchConfidence: 90,
     },
   },
@@ -121,7 +121,7 @@ export const accounts: Account[] = [
     blockerMatch: {
       blocker: 'CFO resistant to network refresh investment despite documented risk. No third-party validation to back the recommendation.',
       solution: 'Provided IDC research brief on infrastructure lifecycle cost vs. downtime risk. Framed as fiduciary responsibility. CFO approved within 2 weeks.',
-      resolvedBy: 'TurboTek Infrastructure Advisory Playbook — Mar 2025',
+      resolvedBy: 'Turbotek Infrastructure Advisory Playbook — Mar 2025',
       matchConfidence: 88,
     },
   },
@@ -189,7 +189,7 @@ export const accounts: Account[] = [
     blockerMatch: {
       blocker: 'ERP middleware compatibility issue unresolved after 3 weeks. New IT contact not empowered to approve the fix.',
       solution: 'Escalated directly to operations director with a 1-page business case showing cost of delay. REST adapter workaround deployed in 4 days.',
-      resolvedBy: 'TurboTek ERP Fast-Track Playbook — Nov 2024',
+      resolvedBy: 'Turbotek ERP Fast-Track Playbook — Nov 2024',
       matchConfidence: 83,
     },
   },
@@ -272,7 +272,7 @@ export const accounts: Account[] = [
     },
     valueSnapshot: {
       technicalSignal: 'Kaseya RMM: 98% patch compliance, zero critical alerts in 90 days. Autotask: satisfaction score 4.9/5 over last 3 QSRs. Fathom notes: COO referenced telehealth expansion plans 3 times in last 60 days. IT Glue 90% complete.',
-      businessOutcome: 'Highest-health account in portfolio. COO\'s telehealth initiative requires secure remote access infrastructure and HIPAA-compliant endpoint management — both within TurboTek\'s wheelhouse. QSR next month is the natural expansion vehicle.',
+      businessOutcome: 'Highest-health account in portfolio. COO\'s telehealth initiative requires secure remote access infrastructure and HIPAA-compliant endpoint management — both within Turbotek\'s wheelhouse. QSR next month is the natural expansion vehicle.',
       outcomeCategory: 'Revenue Impact',
       dollarValue: '$680K–1.1M expansion',
       sources: ['Kaseya RMM', 'Autotask', 'Fathom', 'IT Glue'],

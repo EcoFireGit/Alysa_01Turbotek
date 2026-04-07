@@ -178,7 +178,7 @@ export function PortfolioDashboard({ onAccountClick, onAskAbout }: PortfolioDash
         </div>
       </div>
 
-      {/* TurboTek Demo Script */}
+      {/* Turbotek Demo Script */}
       <div
         className="rounded-xl overflow-hidden"
         style={{ border: '1px solid var(--accent-border)', background: 'var(--accent-bg)' }}

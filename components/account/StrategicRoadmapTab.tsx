@@ -89,11 +89,16 @@ export function StrategicRoadmapTab({ account }: { account: AccountData }) {
 
       {/* Column headers */}
       <div className="grid grid-cols-12 gap-3 px-1" style={{ alignItems: 'center' }}>
-        <div className="col-span-3 text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>Business Goal</div>
+        <div className="col-span-2 text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>Business Goal</div>
         <div className="col-span-1" />
-        <div className="col-span-3 text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>Strategic Gap</div>
+        <div className="col-span-2 flex items-center gap-1 text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>
+          Technical Alignment
+          <InfoTooltip title="Technical Alignment" definition="The specific platform, tool, or configuration change required to close this gap." sources={['IT Glue', 'Kaseya RMM', 'ConnectWise PSA']} />
+        </div>
         <div className="col-span-1" />
-        <div className="col-span-4 flex items-center gap-1 text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>
+        <div className="col-span-2 text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>Strategic Gap</div>
+        <div className="col-span-1" />
+        <div className="col-span-3 flex items-center gap-1 text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>
           Strategic Recommendation
           <InfoTooltip title="Strategic Recommendation" definition="AI-generated recommendations mapped to business goals and gaps. Confidence and timing reflect data quality and recency." sources={['Gap Analysis Engine', 'Fathom', 'IT Glue']} />
         </div>
@@ -112,7 +117,7 @@ export function StrategicRoadmapTab({ account }: { account: AccountData }) {
               style={{ background: 'var(--surface)', border: '1px solid var(--border-subtle)' }}
             >
               {/* Goal */}
-              <div className="col-span-3 flex flex-col justify-center gap-1">
+              <div className="col-span-2 flex flex-col justify-center gap-1">
                 <div className="text-xs font-medium leading-relaxed" style={{ color: 'var(--text-hover)' }}>
                   {row.goal}
                 </div>
@@ -126,8 +131,27 @@ export function StrategicRoadmapTab({ account }: { account: AccountData }) {
                 <ArrowRight className="w-4 h-4" style={{ color: 'var(--accent)', opacity: 0.6 }} />
               </div>
 
+              {/* Technical Alignment */}
+              <div className="col-span-2 flex flex-col justify-center">
+                {row.technicalAlignment ? (
+                  <div
+                    className="text-xs px-3 py-2 rounded-lg leading-relaxed"
+                    style={{ background: 'rgba(165,180,252,0.07)', border: '1px solid rgba(165,180,252,0.2)', color: 'var(--text-primary)' }}
+                  >
+                    {row.technicalAlignment}
+                  </div>
+                ) : (
+                  <span className="text-xs" style={{ color: 'var(--text-muted)' }}>—</span>
+                )}
+              </div>
+
+              {/* Arrow */}
+              <div className="col-span-1 flex items-center justify-center">
+                <ArrowRight className="w-4 h-4" style={{ color: 'var(--accent)', opacity: 0.6 }} />
+              </div>
+
               {/* Gap */}
-              <div className="col-span-3 flex flex-col justify-center gap-2">
+              <div className="col-span-2 flex flex-col justify-center gap-2">
                 <div
                   className="text-xs px-3 py-2 rounded-lg leading-relaxed"
                   style={{ background: 'rgba(248,113,113,0.07)', border: '1px solid rgba(248,113,113,0.2)', color: 'var(--text-primary)' }}
@@ -151,7 +175,7 @@ export function StrategicRoadmapTab({ account }: { account: AccountData }) {
               </div>
 
               {/* Recommendation */}
-              <div className="col-span-4 flex flex-col justify-between gap-2">
+              <div className="col-span-3 flex flex-col justify-between gap-2">
                 <div className="text-xs leading-relaxed" style={{ color: 'var(--text-primary)' }}>
                   {row.recommendation}
                 </div>

@@ -47,7 +47,7 @@ export function SectionChat({ sectionTitle, accountName, context, compact = fals
     setResponse('')
     setLoading(true)
 
-    const contextMessage = `You are answering a question about a specific section of an account profile in the Alysa AI CS Growth Engine for TurboTek.
+    const contextMessage = `You are answering a question about a specific section of an account profile in the Alysa AI CS Growth Engine for Turbotek.
 
 Account: ${accountName}
 Section: ${sectionTitle}
