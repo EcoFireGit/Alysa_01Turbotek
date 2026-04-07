@@ -14,7 +14,14 @@ export interface GapRow {
   exposeToClient: boolean
   whyTiming: 'Quick Win' | 'Next Quarter' | 'Long-term'
   estimatedValue: number
-  revenueType: 'New Service' | 'Upsell' | 'Displacement'
+  outcomeType: 'Risk Reduction' | 'Productivity Gain' | 'Strategic Alignment' | 'Compliance'
+}
+
+export interface IndustryResearch {
+  finding: string
+  source: string
+  year: string
+  relevance: string
 }
 
 export interface Play {
@@ -84,6 +91,7 @@ export interface AccountData {
   techStackDetails: TechStackItem[]
   expansionOpps: ExpansionOpp[]
   customerSaid: string[]
+  customerSaidMeta?: { source: string; timestamp: string }[]
   weObserved: string[]
   weInfer: string[]
   gapRows: GapRow[]
@@ -97,6 +105,8 @@ export interface AccountData {
   qbrOpportunities: string[]
   qbrNextSteps: string[]
   industryInsights: string[]
+  industryResearch?: IndustryResearch[]
+  stickinessSignals?: string[]
   outcomes: Outcome[]
   ticketsClosed?: { month: string; value: number }[]
   threatsDetected?: { month: string; value: number }[]

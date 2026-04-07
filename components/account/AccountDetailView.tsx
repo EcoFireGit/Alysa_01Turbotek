@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Building2, Sparkles, UserCircle, Layers, PlayCircle, FileText, MessageSquareText, ArrowLeft, Map } from 'lucide-react'
+import { Building2, Sparkles, UserCircle, Layers, PlayCircle, FileText, MessageSquareText, ArrowLeft, Map, CalendarDays } from 'lucide-react'
 import { getAccountBySlug } from '@/lib/accountDetailData'
+import { MeetingPrepTab } from './MeetingPrepTab'
 import { ClientProfileTab } from './ClientProfileTab'
 import { GapAnalysisTab } from './GapAnalysisTab'
 import { PlanPlaysTab } from './PlanPlaysTab'
@@ -11,19 +12,20 @@ import { StrategicRoadmapTab } from './StrategicRoadmapTab'
 import { QBRExecBriefTab } from './QBRExecBriefTab'
 import { OutcomesFeedbackTab } from './OutcomesFeedbackTab'
 
-type TabId = 'profile' | 'gaps' | 'plays' | 'roadmap' | 'qbr' | 'outcomes'
+type TabId = 'prep' | 'profile' | 'gaps' | 'plays' | 'roadmap' | 'qbr' | 'outcomes'
 
 const TABS: { id: TabId; label: string; icon: React.ReactNode; tooltip: string }[] = [
+  { id: 'prep',     label: 'Meeting Prep',          icon: <CalendarDays className="w-4 h-4" />,    tooltip: 'Pre-call brief: goals, flags, stickiness signals' },
   { id: 'profile',  label: 'Client Profile',       icon: <UserCircle className="w-4 h-4" />,      tooltip: 'Capture and organize client intel' },
   { id: 'gaps',     label: 'Gap Analysis',          icon: <Layers className="w-4 h-4" />,          tooltip: 'Compare current state vs. ideal state' },
   { id: 'plays',    label: 'Plan & Plays',          icon: <PlayCircle className="w-4 h-4" />,      tooltip: 'Action plans and discovery plays' },
   { id: 'roadmap',  label: 'Strategic Roadmap',     icon: <Map className="w-4 h-4" />,             tooltip: 'Business goals aligned to strategy and tactics' },
-  { id: 'qbr',      label: 'QBR / Exec Brief',      icon: <FileText className="w-4 h-4" />,        tooltip: 'Generate a client-facing executive summary' },
+  { id: 'qbr',      label: 'QSR / Exec Brief',      icon: <FileText className="w-4 h-4" />,        tooltip: 'Generate a client-facing executive summary' },
   { id: 'outcomes', label: 'Outcomes & Feedback',   icon: <MessageSquareText className="w-4 h-4" />, tooltip: 'Track recommendation accuracy' },
 ]
 
 export function AccountDetailView({ accountId }: { accountId: string }) {
-  const [activeTab, setActiveTab] = useState<TabId>('profile')
+  const [activeTab, setActiveTab] = useState<TabId>('prep')
   const account = getAccountBySlug(accountId)
 
   useEffect(() => {
@@ -143,6 +145,7 @@ export function AccountDetailView({ accountId }: { accountId: string }) {
 
       {/* Tab content */}
       <div className="px-6 py-6 max-w-7xl mx-auto">
+        {activeTab === 'prep'     && <MeetingPrepTab account={account} />}
         {activeTab === 'profile'  && <ClientProfileTab account={account} />}
         {activeTab === 'gaps'     && <GapAnalysisTab account={account} />}
         {activeTab === 'plays'    && <PlanPlaysTab account={account} />}

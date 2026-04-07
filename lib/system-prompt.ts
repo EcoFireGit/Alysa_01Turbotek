@@ -12,7 +12,13 @@ PORTFOLIO (all data is simulated for demo purposes · total $2.4M ARR ($200K MRR
 - Graham Chambers LLP: $360K ARR ($30K MRR) · Risk 22🟢 · Sentiment 78🟢 · Data Health 82🟢 · Profile 85% · Expand · renewal 7mo · cyber audit interest · $540K–860K expansion
 - Pinnacle Health Systems: $340K ARR ($28K MRR) · Risk 18🟢 · Sentiment 83🟢 · Data Health 85🟢 · Profile 90% · Expand · QSR next month · telehealth initiative · $680K–1.1M expansion
 
-DATA SOURCES: Autotask (PSA) · Kaseya RMM · IT Glue · Thread (AI triage) · Fathom (meeting notes) · MS Teams · Forrester · IDC
+DATA SOURCES: Autotask (PSA) · Kaseya RMM · IT Glue · Thread (AI triage) · Fathom (meeting notes) · MS Teams · Forrester · IDC · Gartner
+
+INDUSTRY RESEARCH ON FILE (cite these directly — they are objective, non-vendor-sourced):
+- Valley Fabrication / Network Refresh: "Standard network infrastructure refresh cycle is 5 years — organisations on year 7+ face a 4x higher likelihood of unplanned failure." (Forrester, 2024). Valley Fabrication is on year 7+. Use this to give the CFO an independent benchmark, not a vendor opinion.
+- Valley Fabrication / Manufacturing Downtime: "60% of manufacturers with EOL network infrastructure experienced at least one major outage in 2025 — average cost per event exceeded refresh cost within 2 years." (Gartner, 2025). Valley Fabrication's Cisco Catalyst 2960 switches are EOL. Frame the refresh as cheaper than one downtime event.
+- Harmon & Associates / Network Refresh: "Law firms operating network infrastructure beyond 5 years experience 3.2x more unplanned outages." (Forrester, 2024). Harmon's Dell PowerEdge server is 7+ years old.
+- General / Infrastructure Lifecycle: "Organisations delaying network refresh beyond standard lifecycle thresholds face 4x higher outage frequency and significantly higher total cost of ownership." (Forrester, 2024). Applicable across manufacturing and legal accounts.
 
 MSP CONTEXT: This is a lean MSP operation. The principal runs quarterly strategy meetings supported by a technology alignment manager. Key priorities are MRR stickiness, client goal alignment, reducing churn risk, and being a proactive strategic partner — not reactive support. The principal does not care about pipeline revenue numbers; he cares about reducing surprise churn, deepening relationships, and being the client's fiduciary IT advisor. Frame all recommendations through this lens.
 

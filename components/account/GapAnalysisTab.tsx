@@ -2,8 +2,9 @@
 
 import { useState } from 'react'
 import { CollapsibleCard } from '@/components/ui/CollapsibleCard'
-import { SectionFeedback } from './SectionFeedback'
-import { AccountData, GapRow } from '@/lib/types'
+import { AccountData } from '@/lib/types'
+import { ShieldCheck, Zap, Target, BarChart3, BookOpen } from 'lucide-react'
+import { SectionChat } from './SectionChat'
 
 const CONFIDENCE_STYLE = (c: string) =>
   c === 'High' ? { color: '#4ade80', bg: 'rgba(74,222,128,0.1)', border: 'rgba(74,222,128,0.25)' }
@@ -15,16 +16,11 @@ const TIMING_STYLE = (t: string) =>
   : t === 'Next Quarter' ? { color: '#a5b4fc', bg: 'rgba(165,180,252,0.1)' }
   : { color: '#94a3b8', bg: 'rgba(148,163,184,0.1)' }
 
-const REVENUE_STYLE = (r: string) =>
-  r === 'New Service' ? { color: '#4ade80', bg: 'rgba(74,222,128,0.1)' }
-  : r === 'Upsell' ? { color: '#a5b4fc', bg: 'rgba(165,180,252,0.1)' }
-  : { color: '#facc15', bg: 'rgba(250,204,21,0.1)' }
-
-function formatValue(n: number) {
-  if (n >= 1000000) return `$${(n / 1000000).toFixed(1)}M`
-  if (n >= 1000) return `$${(n / 1000).toFixed(0)}K`
-  return `$${n}`
-}
+const OUTCOME_STYLE = (o: string) =>
+  o === 'Risk Reduction'     ? { color: '#f87171', bg: 'rgba(248,113,113,0.1)',  icon: <ShieldCheck className="w-3 h-3" /> }
+  : o === 'Productivity Gain'  ? { color: '#4ade80', bg: 'rgba(74,222,128,0.1)',   icon: <Zap className="w-3 h-3" /> }
+  : o === 'Strategic Alignment'? { color: '#a5b4fc', bg: 'rgba(165,180,252,0.1)', icon: <Target className="w-3 h-3" /> }
+  : /* Compliance */             { color: '#facc15', bg: 'rgba(250,204,21,0.1)',   icon: <BarChart3 className="w-3 h-3" /> }
 
 export function GapAnalysisTab({ account }: { account: AccountData }) {
   const [exposedMap, setExposedMap] = useState<Record<number, boolean>>(
@@ -43,14 +39,9 @@ export function GapAnalysisTab({ account }: { account: AccountData }) {
           : `You also flagged "${g.goal}". ${g.currentReality}. ${g.recommendation}.`
       ).join('\n\n')
 
-  const totalPipeline = account.gapRows.reduce((s, g) => s + g.estimatedValue, 0)
-  const weightedPipeline = account.gapRows.reduce((s, g) => {
-    const w = g.confidence === 'High' ? 0.8 : g.confidence === 'Medium' ? 0.5 : 0.2
-    return s + g.estimatedValue * w
-  }, 0)
-
-  const byType = account.gapRows.reduce<Record<string, number>>((acc, g) => {
-    acc[g.revenueType] = (acc[g.revenueType] || 0) + g.estimatedValue
+  // Count by outcome type
+  const byOutcome = account.gapRows.reduce<Record<string, number>>((acc, g) => {
+    acc[g.outcomeType] = (acc[g.outcomeType] || 0) + 1
     return acc
   }, {})
 
@@ -60,16 +51,27 @@ export function GapAnalysisTab({ account }: { account: AccountData }) {
       <div className="col-span-2 space-y-4">
 
         {/* Customer Voice */}
-        <CollapsibleCard title="Customer Voice">
+        <CollapsibleCard title="Customer Voice" infoSources={['Fathom', 'CRM']} infoDefinition="Direct quotes from meeting recordings and CRM call notes. Observations and inferences are AI-synthesized from those same sources.">
           <div className="grid grid-cols-3 gap-3 text-xs">
             <div>
               <div className="font-semibold mb-2" style={{ color: 'var(--text-muted)', letterSpacing: '0.05em' }}>THEY SAID…</div>
               <div className="space-y-2">
-                {account.customerSaid.map((s, i) => (
-                  <div key={i} className="italic p-2 rounded-lg" style={{ background: 'rgba(87,94,207,0.06)', color: 'var(--text-secondary)', border: '1px solid var(--accent-border-medium, rgba(87,94,207,0.15))' }}>
-                    {s}
-                  </div>
-                ))}
+                {account.customerSaid.map((s, i) => {
+                  const meta = account.customerSaidMeta?.[i]
+                  return (
+                    <div key={i} className="relative group italic p-2 rounded-lg cursor-default" style={{ background: 'rgba(87,94,207,0.06)', color: 'var(--text-secondary)', border: '1px solid var(--accent-border-medium, rgba(87,94,207,0.15))' }}>
+                      {s}
+                      {meta && (
+                        <div className="pointer-events-none absolute bottom-full left-0 mb-2 z-20 w-max max-w-[200px] rounded-lg px-3 py-2 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-150 shadow-lg"
+                          style={{ background: 'var(--surface)', border: '1px solid var(--accent-border-strong, rgba(87,94,207,0.4))', color: 'var(--text-primary)' }}>
+                          <div className="font-semibold mb-0.5" style={{ color: 'var(--accent-light)' }}>{meta.source}</div>
+                          <div style={{ color: 'var(--text-muted)' }}>{meta.timestamp}</div>
+                          <div className="absolute left-3 top-full w-0 h-0" style={{ borderLeft: '5px solid transparent', borderRight: '5px solid transparent', borderTop: '5px solid var(--accent-border-strong, rgba(87,94,207,0.4))' }} />
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
               </div>
             </div>
             <div>
@@ -93,22 +95,30 @@ export function GapAnalysisTab({ account }: { account: AccountData }) {
               </div>
             </div>
           </div>
+          <SectionChat
+            sectionTitle="Customer Voice"
+            accountName={account.name}
+            context={`They said:\n${account.customerSaid.join('\n')}\n\nWe observed:\n${account.weObserved.join('\n')}\n\nWe infer:\n${account.weInfer.join('\n')}`}
+            compact
+          />
         </CollapsibleCard>
 
         {/* Gap Analysis */}
         <CollapsibleCard
-          title="Gap Analysis — Internal View"
+          title="Alignment Gaps — Internal View"
           badge={
             <span className="text-xs px-1.5 py-0.5 rounded ml-1" style={{ background: 'rgba(87,94,207,0.1)', color: 'var(--accent)' }}>
               {Object.values(exposedMap).filter(Boolean).length} exposed
             </span>
           }
+          infoSources={['Gap Analysis Engine', 'Fathom', 'IT Glue']}
+          infoDefinition="Gaps are AI-derived by comparing stated client goals against observed environment data and industry benchmarks."
         >
           <div className="space-y-3">
             {account.gapRows.map((gap, i) => {
               const conf = CONFIDENCE_STYLE(gap.confidence)
               const tim = TIMING_STYLE(gap.whyTiming)
-              const rev = REVENUE_STYLE(gap.revenueType)
+              const out = OUTCOME_STYLE(gap.outcomeType)
               const isExposed = exposedMap[i]
               return (
                 <div key={i} className="rounded-xl p-4 space-y-3" style={{ background: 'var(--bg)', border: `1px solid ${isExposed ? 'var(--accent-border-medium, rgba(87,94,207,0.3))' : 'var(--border-faint)'}` }}>
@@ -143,53 +153,100 @@ export function GapAnalysisTab({ account }: { account: AccountData }) {
                       </div>
                     ))}
                   </div>
-                  {/* Footer */}
+                  {/* Footer — outcome type only, no dollar hero */}
                   <div className="flex items-center gap-3 pt-1" style={{ borderTop: '1px solid var(--border-faint)' }}>
-                    <span className="text-xs font-semibold" style={{ color: '#4ade80' }}>{formatValue(gap.estimatedValue)}/yr estimated</span>
-                    <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: rev.bg, color: rev.color }}>{gap.revenueType}</span>
+                    <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full" style={{ background: out.bg, color: out.color }}>
+                      {out.icon} {gap.outcomeType}
+                    </span>
                     <span className="text-xs ml-auto" style={{ color: 'var(--text-faint)' }}>Internal only</span>
                   </div>
                 </div>
               )
             })}
           </div>
-          <SectionFeedback />
+          <SectionChat
+            sectionTitle="Alignment Gaps"
+            accountName={account.name}
+            context={account.gapRows.map(g => `Goal: ${g.goal}\nGap: ${g.gap}\nRecommendation: ${g.recommendation}\nOutcome: ${g.outcomeType}`).join('\n\n')}
+            compact
+          />
         </CollapsibleCard>
+
+        {/* Industry Research */}
+        {account.industryResearch && account.industryResearch.length > 0 && (
+          <CollapsibleCard
+            title="Industry Research"
+            badge={<span className="text-xs px-1.5 py-0.5 rounded ml-1" style={{ background: 'rgba(87,94,207,0.1)', color: 'var(--accent)' }}>{account.industryResearch.length} citations</span>}
+            infoSources={['Forrester', 'IDC', 'Gartner']}
+            infoDefinition="Objective third-party research — no vendor affiliation. Used to support strategic recommendations with independent data."
+          >
+            <div className="space-y-3">
+              {account.industryResearch.map((r, i) => (
+                <div key={i} className="rounded-lg p-3" style={{ background: 'var(--bg)', border: '1px solid var(--border-faint)' }}>
+                  <div className="flex items-start gap-2 mb-2">
+                    <BookOpen className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" style={{ color: 'var(--accent)' }} />
+                    <span className="text-xs leading-relaxed font-medium" style={{ color: 'var(--text-primary)' }}>{r.finding}</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-xs pl-5">
+                    <span style={{ color: 'var(--accent-light)', fontWeight: 600 }}>{r.source}</span>
+                    <span style={{ color: 'var(--text-muted)' }}>{r.year}</span>
+                  </div>
+                  <div className="text-xs mt-2 pl-5 italic" style={{ color: 'var(--text-secondary)' }}>
+                    Why it matters here: {r.relevance}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CollapsibleCard>
+        )}
       </div>
 
       {/* Right 1/3 */}
       <div className="space-y-4">
 
-        {/* Expansion Pipeline */}
-        <CollapsibleCard title="Expansion Pipeline" badge={<span className="text-xs px-1.5 py-0.5 rounded ml-1" style={{ background: 'rgba(248,113,113,0.1)', color: '#f87171' }}>Internal</span>}>
+        {/* Alignment Summary — replaces Expansion Pipeline */}
+        <CollapsibleCard title="Alignment Summary" badge={<span className="text-xs px-1.5 py-0.5 rounded ml-1" style={{ background: 'rgba(248,113,113,0.1)', color: '#f87171' }}>Internal</span>} infoSources={['Gap Analysis Engine']} infoDefinition="Aggregated gap counts and quick-win flags derived from the gap analysis. Internal use only — not shown to clients.">
           <div className="space-y-3 text-sm">
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <div className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Total Pipeline</div>
-                <div className="text-xl font-bold" style={{ color: '#4ade80' }}>{formatValue(totalPipeline)}</div>
+                <div className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Total Gaps</div>
+                <div className="text-xl font-bold" style={{ color: 'var(--text-hover)' }}>{account.gapRows.length}</div>
               </div>
               <div>
-                <div className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Weighted Pipeline</div>
-                <div className="text-xl font-bold" style={{ color: 'var(--accent)' }}>{formatValue(weightedPipeline)}</div>
+                <div className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>Exposed to Client</div>
+                <div className="text-xl font-bold" style={{ color: '#4ade80' }}>{Object.values(exposedMap).filter(Boolean).length}</div>
               </div>
             </div>
             <div style={{ borderTop: '1px solid var(--border-faint)', paddingTop: '8px' }}>
-              <div className="text-xs font-semibold mb-2" style={{ color: 'var(--text-muted)', letterSpacing: '0.05em' }}>BY TYPE</div>
-              {Object.entries(byType).map(([type, val]) => {
-                const sty = REVENUE_STYLE(type)
+              <div className="text-xs font-semibold mb-2" style={{ color: 'var(--text-muted)', letterSpacing: '0.05em' }}>BY OUTCOME</div>
+              {Object.entries(byOutcome).map(([type, count]) => {
+                const sty = OUTCOME_STYLE(type)
                 return (
-                  <div key={type} className="flex justify-between text-xs py-1">
-                    <span style={{ color: sty.color }}>{type}</span>
-                    <span style={{ color: 'var(--text-primary)' }}>{formatValue(val)}</span>
+                  <div key={type} className="flex items-center justify-between text-xs py-1">
+                    <span className="flex items-center gap-1.5" style={{ color: sty.color }}>{sty.icon} {type}</span>
+                    <span className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{count} gap{count > 1 ? 's' : ''}</span>
                   </div>
                 )
               })}
+            </div>
+            {/* High-confidence quick wins */}
+            <div style={{ borderTop: '1px solid var(--border-faint)', paddingTop: '8px' }}>
+              <div className="text-xs font-semibold mb-2" style={{ color: 'var(--text-muted)', letterSpacing: '0.05em' }}>QUICK WINS</div>
+              {account.gapRows.filter(g => g.whyTiming === 'Quick Win' && g.confidence === 'High').map((g, i) => (
+                <div key={i} className="text-xs py-1 flex items-start gap-1.5">
+                  <Zap className="w-3 h-3 flex-shrink-0 mt-0.5" style={{ color: '#4ade80' }} />
+                  <span style={{ color: 'var(--text-secondary)' }}>{g.goal}</span>
+                </div>
+              ))}
+              {account.gapRows.filter(g => g.whyTiming === 'Quick Win' && g.confidence === 'High').length === 0 && (
+                <span className="text-xs" style={{ color: 'var(--text-muted)' }}>No high-confidence quick wins</span>
+              )}
             </div>
           </div>
         </CollapsibleCard>
 
         {/* Client-Ready Narrative */}
-        <CollapsibleCard title="Client-Ready Narrative">
+        <CollapsibleCard title="Client-Ready Narrative" infoSources={['Gap Analysis Engine', 'Fathom']} infoDefinition="AI-generated narrative from exposed gaps and client goals. Review before sharing — verify accuracy against your last call notes.">
           <div className="space-y-3">
             {exposedGaps.length === 0 ? (
               <p className="text-xs italic" style={{ color: 'var(--text-muted)' }}>Toggle gaps above to expose them to the client narrative.</p>

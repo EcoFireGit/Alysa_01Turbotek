@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { CheckCircle2, Circle, MessageSquare, Target, User, Copy, ChevronDown, ChevronRight } from 'lucide-react'
 import { CollapsibleCard } from '@/components/ui/CollapsibleCard'
-import { SectionFeedback } from './SectionFeedback'
+import { SectionChat } from './SectionChat'
 import { AccountData } from '@/lib/types'
 
 const STATUS_STYLE = (s: string) =>
@@ -18,7 +18,7 @@ export function PlanPlaysTab({ account }: { account: AccountData }) {
     <div className="grid grid-cols-3 gap-6">
       {/* Left 2/3 */}
       <div className="col-span-2 space-y-4">
-        <CollapsibleCard title="Active Plays" badge={<span className="text-xs px-1.5 py-0.5 rounded ml-1" style={{ background: 'rgba(87,94,207,0.1)', color: 'var(--accent)' }}>{account.plays.length}</span>}>
+        <CollapsibleCard title="Active Plays" badge={<span className="text-xs px-1.5 py-0.5 rounded ml-1" style={{ background: 'rgba(87,94,207,0.1)', color: 'var(--accent)' }}>{account.plays.length}</span>} infoSources={['ConnectWise PSA', 'IT Glue']} infoDefinition="Plays and project steps tracked in ConnectWise PSA. Status reflects last sync.">
           <div className="space-y-4">
             {account.plays.map((play, i) => {
               const sty = STATUS_STYLE(play.status)
@@ -64,7 +64,12 @@ export function PlanPlaysTab({ account }: { account: AccountData }) {
                     <MessageSquare className="w-3 h-3" />
                     <span>Next: {play.nextTouchpoint}</span>
                   </div>
-                  <SectionFeedback compact />
+                  <SectionChat
+                    sectionTitle={play.title}
+                    accountName={account.name}
+                    context={`Play: ${play.title}\nStatus: ${play.status}\nOwner: ${play.owner}\nTarget Outcome: ${play.targetOutcome}\nSteps:\n${play.steps.join('\n')}\nNext Touchpoint: ${play.nextTouchpoint}`}
+                    compact
+                  />
                 </div>
               )
             })}
@@ -74,7 +79,7 @@ export function PlanPlaysTab({ account }: { account: AccountData }) {
 
       {/* Right 1/3 */}
       <div>
-        <CollapsibleCard title="Discovery Plays" badge={<span className="text-xs px-1.5 py-0.5 rounded ml-1" style={{ background: 'rgba(87,94,207,0.1)', color: 'var(--accent)' }}>{account.discoveryPlays.length}</span>}>
+        <CollapsibleCard title="Discovery Plays" badge={<span className="text-xs px-1.5 py-0.5 rounded ml-1" style={{ background: 'rgba(87,94,207,0.1)', color: 'var(--accent)' }}>{account.discoveryPlays.length}</span>} infoSources={['Fathom', 'CRM']} infoDefinition="Discovery play templates generated from client goals and gap patterns. Use these to structure your next conversation.">
           <div className="space-y-2">
             {account.discoveryPlays.map((dp, i) => (
               <div key={i} className="rounded-lg overflow-hidden" style={{ border: '1px solid var(--border-faint)' }}>
