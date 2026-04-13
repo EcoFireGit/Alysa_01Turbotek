@@ -593,7 +593,7 @@ st.markdown("""
             padding:10px 0 14px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:16px;">
   <div style="display:flex;align-items:center;gap:10px;">
     <div style="font-size:.95rem;font-weight:600;color:#dcdad5;">Customer Success Intelligence</div>
-    <span class="badge badge-acc">claude-opus-4-6</span>
+    <span class="badge badge-acc">claude-sonnet-4-6</span>
     <span class="badge" style="background:rgba(250,204,21,.1);color:#a89a60;border:1px solid rgba(250,204,21,.2);">
       ⚠️ DEMO DATA
     </span>
@@ -711,7 +711,7 @@ if prompt_to_send:
 
         try:
             with client.messages.stream(
-                model="claude-opus-4-6",
+                model="claude-sonnet-4-6",
                 max_tokens=4096,
                 thinking={"type": "adaptive"},
                 system=ALYSA_SYSTEM_PROMPT,
@@ -744,7 +744,7 @@ if prompt_to_send:
 st.markdown("""
 <div style="text-align:center;padding:16px 0 4px;font-size:.65rem;color:#3a3835;">
   Alysa uses simulated data from Salesforce · ServiceNow · MS Teams · Email · Forrester · IDC
-  &nbsp;·&nbsp; Powered by Claude claude-opus-4-6
+  &nbsp;·&nbsp; Powered by Claude claude-sonnet-4-6
   &nbsp;·&nbsp; ⚠️ All data is made up for demo purposes
 </div>
 """, unsafe_allow_html=True)
