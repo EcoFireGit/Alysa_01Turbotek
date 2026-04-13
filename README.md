@@ -26,7 +26,7 @@ Every response follows a structured format: sources + confidence, advisory summa
 | Framework | Next.js 14 (App Router) |
 | Language | TypeScript |
 | Styling | Tailwind CSS (custom dark theme) |
-| AI | Claude claude-opus-4-6 via Anthropic SDK (streaming + adaptive thinking) |
+| AI | Claude claude-sonnet-4-6 via Anthropic SDK (streaming + adaptive thinking) |
 | Charts | Recharts |
 | Icons | Lucide React |
 
@@ -105,4 +105,4 @@ To reconfigure Alysa for a different MSP client, update `lib/system-prompt.ts` (
 
 ## Built With
 
-Alysa is a [Prioriwise](https://prioriwise.ai) customer demo. The underlying AI engine uses Claude claude-opus-4-6 with adaptive thinking enabled for deeper multi-step reasoning on complex portfolio questions.
+Alysa is a [Prioriwise](https://prioriwise.ai) customer demo. The underlying AI engine uses Claude claude-sonnet-4-6 with adaptive thinking enabled for deeper multi-step reasoning on complex portfolio questions.

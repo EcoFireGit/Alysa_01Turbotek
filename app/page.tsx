@@ -58,12 +58,6 @@ export default function Home() {
         >
           <div className="flex items-center gap-3">
             <div className="text-sm font-medium" style={{ color: 'var(--text-hover)' }}>Strategic Client Alignment Engine</div>
-            <div
-              className="text-xs px-2 py-0.5 rounded-full"
-              style={{ background: 'var(--accent-bg)', color: 'var(--accent-light)', border: '1px solid var(--accent-border)' }}
-            >
-              claude-opus-4-6
-            </div>
           </div>
           <div className="flex items-center gap-3 text-xs" style={{ color: 'var(--text-muted)' }}>
             <span>$2.4M ARR · $200K MRR · 8 accounts</span>

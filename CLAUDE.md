@@ -27,7 +27,7 @@ ANTHROPIC_API_KEY=your_api_key_here
 
 1. User types or speaks a message in `components/ChatInterface.tsx`
 2. POST to `app/api/chat/route.ts` with message history
-3. Route calls Anthropic SDK (claude-opus-4-6 with adaptive thinking, streaming enabled)
+3. Route calls Anthropic SDK (claude-sonnet-4-6 with adaptive thinking, streaming enabled)
 4. Streamed response returned as SSE, rendered in `components/MessageBubble.tsx`
 
 ### Key Files
